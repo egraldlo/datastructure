@@ -1,0 +1,21 @@
+makefile is followed by automake repo by yuhuang(xiaochu)
+
+setup steps:
+
+1. ./build.sh init
+1. configure --prefix=/your/install/path
+1. make
+1. make install
+
+cleanup steps:
+
+1. make clean
+1. build.sh clean
+
+this repo is built for finding a job when I graduating from school, at here I will try:
+0, try using makefile to build project
+   a, simple build to one single executed file passed!
+   b, testing multi level sub dir...
+1, some c++ high property usage
+2, data structures written by using c++
+
