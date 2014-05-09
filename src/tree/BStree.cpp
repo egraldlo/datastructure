@@ -1,17 +1,17 @@
 /*
- * Try1.cpp
+ * BStree.cpp
  *
- *  Created on: 2014-5-8
+ *  Created on: 2014-5-9
  *      Author: casa
  */
 
-#include "Try1.h"
+#include "BStree.h"
 
-Try1::Try1() {
+BStree::BStree() {
 	// TODO 自动生成的构造函数存根
 
 }
 
-Try1::~Try1() {
+BStree::~BStree() {
 	// TODO 自动生成的析构函数存根
 }

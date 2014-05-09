@@ -5,8 +5,8 @@
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================
-#include "common/Btree.h"
-#include "common/AVLtree.h"
+#include "tree/Btree.h"
+#include "tree/AVLtree.h"
 
 #include "sec/Try.h"
 
