@@ -7,12 +7,14 @@
 //============================================================================
 #include "common/Btree.h"
 #include "common/AVLtree.h"
+
+#include "sec/Try.h"
+
+#include "sync/pro_cus.h"
+#include "sync/BarrierTest.h"
+
 #include "exception.h"
-
-#include "BarrierTest.h"
-
 #include "daemon.h"
-#include "pro_cus.h"
 #include "fork.h"
 #include "SParent.h"
 #include "SChild1.h"
@@ -169,15 +171,17 @@ int test_bitmap(){
 
 int main(){
 	cout<<"hello?"<<endl;
-//	test_barrier();
-	test_avltree();
-//	test_pc();
+	Try * t=new Try();
+	t->print();
+	test_barrier();
+//	test_avltree();
+	test_pc();
 //	test_daemon();
 //	test_fork();
 //	test_exception();
 //	test_serObject();
 //	test_barrier();
-	test_btree();
+//	test_btree();
 //	test_affinity();
 //	test_processor();
 //	test_hashtable();
