@@ -7,4 +7,5 @@ int main(){
 	BStree * bst=new BStree();
 	bst->info();
 	return 0;
+//haha
 }
