@@ -6,24 +6,3 @@
  */
 
 #include "BStree.h"
-
-BStree::BStree() {
-	root=0;
-	cout<<"I am in the BStree"<<endl;
-}
-
-BStree::~BStree() {
-
-}
-
-void BStree:Insert(){
-
-}
-
-void BStree:Delete(){
-
-}
-
-void BStree:Display(){
-
-}

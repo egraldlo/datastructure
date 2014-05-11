@@ -12,7 +12,7 @@
 using namespace std;
 
 /*
- * 二叉树性质：
+ * 二叉树性质（二叉搜索树）：
  * 1，若节点的左子树不空，左子树中所有节点值均小于根节点
  * 2，若节点的右子树不空，右子树中所有节点值均大于根节点
  * 3，左右子树都是二叉树
@@ -22,6 +22,7 @@ using namespace std;
 template <class Value>
 class BStree {
 public:
+	//在此是相当于两个数据结构，外部数据结构和类是不一样的模板参数
 	template <typename V>
 	struct node{
 		V value;
@@ -30,17 +31,38 @@ public:
 	};
 
 public:
-	//构造的时候应该是一棵空树
-	BStree();
-	virtual ~BStree();
+	BStree():root(0){
+		cout<<"用特定的数据类型构造了空树！"<<endl;
+	};
 
-private:	
-	void Insert();
-	void Delete();
+	virtual ~BStree(){};
+
+public:
+	void Insert(Value value);
+	void Delete(Value value);
 	void Display();
 
 private:
-	node<V> * root;
+	node<Value> * root;
 };
+
+//C++编译器不支持对模板的分离式编译，将成员函数的实现放在.h文件中
+template <typename Value>
+void BStree<Value>::
+Insert(Value value){
+	cout<<"向树中插入一个值！"<<value<<endl;
+}
+
+template <typename Value>
+void BStree<Value>::
+Delete(Value value){
+	cout<<"删除树中的某个值！"<<value<<endl;
+}
+
+template <typename Value>
+void BStree<Value>::
+Display(){
+	cout<<"输出这棵树上所有的值！"<<endl;
+}
 
 #endif /* BSTREE_H_ */
