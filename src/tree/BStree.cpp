@@ -8,10 +8,22 @@
 #include "BStree.h"
 
 BStree::BStree() {
-	// TODO 自动生成的构造函数存根
-
+	root=0;
+	cout<<"I am in the BStree"<<endl;
 }
 
 BStree::~BStree() {
-	// TODO 自动生成的析构函数存根
+
+}
+
+void BStree:Insert(){
+
+}
+
+void BStree:Delete(){
+
+}
+
+void BStree:Display(){
+
 }

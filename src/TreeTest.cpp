@@ -4,7 +4,6 @@
 using namespace std;
 
 int main(){
-	BStree * bst=new BStree();
-	bst->info();
+	BStree<int> * bst=new BStree();
 	return 0;
 }

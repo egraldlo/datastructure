@@ -15,7 +15,8 @@ cleanup steps:
 this repo is built for finding a job when I graduating from school, at here I will try:
 0, try using makefile to build project
    a, simple build to one single executed file passed!
-   b, testing multi level sub dir...
+   b, one level and multiple executed file with .a passed!
+   c, multi level and .o and .so file must be supported...
 1, some c++ high property usage
 2, data structures written by using c++
 
