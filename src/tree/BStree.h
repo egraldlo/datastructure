@@ -11,6 +11,8 @@
 #include <iostream>
 using namespace std;
 
+#include "../sort/SortAlgorithms.h"
+
 /*
  * 二叉树性质（二叉搜索树）：
  * 1，若节点的左子树不空，左子树中所有节点值均小于根节点
@@ -63,6 +65,8 @@ template <typename Value>
 void BStree<Value>::
 Display(){
 	cout<<"输出这棵树上所有的值！"<<endl;
+	SortAlgorithms *sort=new SortAlgorithms();
+	sort->test();
 }
 
 #endif /* BSTREE_H_ */

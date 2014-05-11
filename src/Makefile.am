@@ -7,7 +7,8 @@ include_HEADERS = affinity.h\
 				processor.h RegisterChild.h SChild1.h SParent.h\
 				PL.h Compute.h
 				
-bin_PROGRAMS =  cppforwork treetest 
+				
+bin_PROGRAMS =  cppforwork treetest
 
 cppforwork_SOURCES = affinity.cpp\
 				BitMap.cpp daemon.cpp\
@@ -19,7 +20,7 @@ cppforwork_SOURCES = affinity.cpp\
 treetest_SOURCES = TreeTest.cpp
 
 cppforwork_LDADD = sec/libsec.a sync/libsync.a tree/libtree.a
-treetest_LDADD = tree/libtree.a
+treetest_LDADD = tree/libtree.a sort/libsort.a 
 				 
-SUBDIRS = tree sec sync
-DIST_SUBDIRS = tree sec sync
+SUBDIRS = tree sec sync sort
+DIST_SUBDIRS = tree sec sync sort
