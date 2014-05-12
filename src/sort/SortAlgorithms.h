@@ -11,6 +11,11 @@
 #include <iostream>
 using namespace std;
 
+//这里两点值得优化：
+//1. 不只是int
+//2. 支持从本地读文件
+static int waitingforSort[20]={3,5,8,4,23,52,56,13,544,65,3454,41,43,1,314,546,75,74,12,9};
+
 //在此每个排序算法为SortAlgorithms类的一个成员函数
 class SortAlgorithms {
 public:
@@ -18,13 +23,15 @@ public:
 	virtual ~SortAlgorithms();
 
 public:
-	void test(){
-		cout<<"In the test!"<<endl;
-	}
+	void init(){
+		cout<<"初始化待排序数组！"<<endl;
+	};
 
 public:
 	void quickSort();
 	void mergeSort();
+	void radixSort();
+
 };
 
 #endif /* SORTALGORITHMS_H_ */

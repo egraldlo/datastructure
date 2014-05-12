@@ -171,15 +171,15 @@ int test_bitmap(){
 
 int main(){
 	cout<<"hello?"<<endl;
-	Try * t=new Try();
-	t->print();
-	test_barrier();
+//	Try * t=new Try();
+//	t->print();
+//	test_barrier();
 //	test_avltree();
-	test_pc();
+//	test_pc();
 //	test_daemon();
 //	test_fork();
 //	test_exception();
-//	test_serObject();
+	test_serObject();
 //	test_barrier();
 //	test_btree();
 //	test_affinity();

@@ -1,5 +1,6 @@
 #include "tree/BStree.h"
 #include "sort/SortAlgorithms.h"
+#include "external/ClaimsHDFS.h"
 
 #include <iostream>
 using namespace std;
@@ -11,6 +12,9 @@ int main(){
 	bst->Display();
 
 	SortAlgorithms *sort=new SortAlgorithms();
-	sort->test();
+	sort->init();
+
+	ClaimsHDFS *ch=new ClaimsHDFS();
+	ch->claimsRead();
 	return 0;
 }

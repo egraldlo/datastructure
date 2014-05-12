@@ -66,7 +66,7 @@ void BStree<Value>::
 Display(){
 	cout<<"输出这棵树上所有的值！"<<endl;
 	SortAlgorithms *sort=new SortAlgorithms();
-	sort->test();
+	sort->init();
 }
 
 #endif /* BSTREE_H_ */
