@@ -42,6 +42,7 @@ public:
 public:
 	void Insert(Value value);
 	void Delete(Value value);
+	bool Search(node<Value> *treenode,Value value);
 	void Display();
 
 private:
@@ -62,9 +63,29 @@ Delete(Value value){
 }
 
 template <typename Value>
+bool BStree<Value>::
+Search(node<Value> *treenode,Value value){
+	cout<<"search the tree!"<<endl;
+	if(treenode->left==0&&treenode->right==0){
+		return false;
+	}else{
+		if(treenode->value==value)
+			return true;
+		else{
+			if(treenode->value<value)
+				Search(treenode->right,value);
+			else
+				Search(treenode->left,value);
+		}
+	}
+}
+
+template <typename Value>
 void BStree<Value>::
 Display(){
 	cout<<"输出这棵树上所有的值！"<<endl;
+
+	cout<<"test makefile!!!"<<endl;
 	SortAlgorithms *sort=new SortAlgorithms();
 	sort->init();
 }

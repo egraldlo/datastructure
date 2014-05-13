@@ -11,11 +11,20 @@
 #include <iostream>
 using namespace std;
 
+#include "../external/ClaimsHDFS.h"
+#include "thir/Thir.h"
+
 class Try {
 public:
 	Try();
 	void print(){
 		cout<<"in the print!"<<endl;
+		Thir *tr=new Thir();
+		tr->test();
+	}
+
+	void test(){
+		cout<<"in thr try test"<<endl;
 	}
 	virtual ~Try();
 };

@@ -11,10 +11,14 @@ int main(){
 	bst->Delete(2);
 	bst->Display();
 
+
+	cout<<"---------------bound------------"<<endl;
+
 	SortAlgorithms *sort=new SortAlgorithms();
 	sort->init();
 
 	ClaimsHDFS *ch=new ClaimsHDFS();
 	ch->claimsRead();
+
 	return 0;
 }

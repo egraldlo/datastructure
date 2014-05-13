@@ -16,8 +16,8 @@ this repo is built for finding a job when I graduating from school, at here I wi
 0, try using makefile to build project
    a, simple build to one single executed file passed!
    b, one level and multiple executed file with .a passed!
-   c, .so is supported but some ugly!
-   c, multi level and .o file must be supported...
+   c, .so is supported but some ugly and multi level .a supported and in the first level will include third level .a
+   d, .o file must be supported...
 1, some c++ high property usage
 2, data structures written by using c++
 3, sort algorithm and search algorithm

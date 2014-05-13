@@ -11,6 +11,11 @@
 #include <iostream>
 using namespace std;
 
+#include "../../Log.h"
+#include "../../Debug.h"
+
+#include "../sec/Try.h"
+
 //这里两点值得优化：
 //1. 不只是int
 //2. 支持从本地读文件
@@ -24,6 +29,11 @@ public:
 
 public:
 	void init(){
+		cout<<"number: "<<NUMBER<<endl;
+		Log *lg=new Log();
+		lg->logging();
+		Try *t=new Try();
+		t->test();
 		cout<<"初始化待排序数组！"<<endl;
 	};
 

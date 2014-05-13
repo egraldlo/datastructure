@@ -26,6 +26,9 @@
 
 #include "choose.cpp"
 
+#include "../Log.h"
+#include "../Debug.h"
+
 #include <iostream>
 #include <sstream>
 using namespace std;
@@ -171,8 +174,13 @@ int test_bitmap(){
 
 int main(){
 	cout<<"hello?"<<endl;
-//	Try * t=new Try();
-//	t->print();
+	Try * t=new Try();
+	t->print();
+	Log *lg=new Log();
+	lg->logging();
+
+	cout<<"Debug: "<<NUMBER<<endl;
+
 //	test_barrier();
 //	test_avltree();
 //	test_pc();
