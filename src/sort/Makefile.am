@@ -6,9 +6,13 @@ AM_CPPFLAGS= -fPIC\
 
 AM_LDFLAGS=-lc -lm -lrt
 
-noinst_LIBRARIES=libtree.a
-libtree_a_SOURCES = AVLtree.cpp Heap.cpp Btree.cpp BStree.cpp\
-					AVLtree.h Heap.h Btree.h BStree.h  
+noinst_LIBRARIES=libsort.a
+libsort_a_SOURCES = SortAlgorithms.cpp \
+					SortAlgorithms.h  
+
+#.a中加入外层的.o文件的写法
+#引用
+libsort_a_LIBADD = ../../Log.o ../sec/libsec.a
 
 #libcommon_a_LDFLAGS= -ldl -lm -lpthread
 #include_HEADERS=AVLtree.h Heap.h Btree.h BStree.h 

@@ -37,6 +37,9 @@ public:
 		cout<<"初始化待排序数组！"<<endl;
 	};
 
+	void test(){
+		cout<<"cdcdcdcdc"<<endl;
+	}
 public:
 	void quickSort();
 	void mergeSort();
