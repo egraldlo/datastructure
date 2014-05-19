@@ -7,6 +7,7 @@ AC_CONFIG_FILES([
   Makefile
   src/Makefile
   src/tree/Makefile
+  src/cmysql/Makefile
   src/a/Makefile
   src/b/Makefile
   src/sec/Makefile

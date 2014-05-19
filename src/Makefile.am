@@ -15,7 +15,7 @@ include_HEADERS = affinity.h\
 				processor.h RegisterChild.h SChild1.h SParent.h\
 				PL.h Compute.h
 				
-bin_PROGRAMS =  cppforwork treetest
+bin_PROGRAMS =  cppforwork treetest cserver 
 
 cppforwork_SOURCES = affinity.cpp\
 				BitMap.cpp daemon.cpp\
@@ -26,12 +26,16 @@ cppforwork_SOURCES = affinity.cpp\
 				
 treetest_SOURCES = TreeTest.cpp
 
+cserver_SOURCES = CMysql.cpp
+
 #生成可执行文件是用LDADD，但是生成.a文件是用LIBADD，
 #后面.o是需要加入的，有没有优雅点的方法呢？但如果只是.h文件呢？
 cppforwork_LDADD = sec/libsec.a sync/libsync.a tree/libtree.a sec/thir/libthir.a ../Log.o
 
 #如果有多层依赖的话，要在第一层的makefile中写上第三层.a的依赖，但是这个地方是可以优化的感觉。
 treetest_LDADD = sec/libsec.a tree/libtree.a sort/libsort.a external/libclaimshdfs.a a/liba.a b/libb.a
+
+cserver_LDADD = cmysql/libcmysql.a
 		 
-SUBDIRS = tree sec sync sort external a b
-DIST_SUBDIRS = tree sec sync sort external a b
+SUBDIRS = tree sec sync sort external a b cmysql
+DIST_SUBDIRS = tree sec sync sort external a b cmysql

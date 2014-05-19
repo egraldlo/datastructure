@@ -19,8 +19,8 @@ int main(){
 	SortAlgorithms *sort=new SortAlgorithms();
 	sort->init();
 
-//	ClaimsHDFS *ch=new ClaimsHDFS();
-//	ch->claimsRead();
+	ClaimsHDFS *ch=new ClaimsHDFS();
+	ch->claimsRead();
 
 	A1 *a1=new A1();
 	a1->test();

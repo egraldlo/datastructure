@@ -22,28 +22,3 @@ this repo is built for finding a job when I graduating from school, at here I wi
 2, data structures written by using c++
 3, sort algorithm and search algorithm
 4, github usage and vim usage
-
-
-
-
-
-
-
-
-
-
-
-ob startup command: 
-bin/rootserver -r ip:2500 -R ip:2500 -i 网卡名 -C1
-bin/updateserver -r ip:2500 -p 2700 -m 2701 -i 网卡名
-bin/mergeserver -r ip:2500 -p 2800 -z 2828 -i 网卡名 -tlms
-bin/chunkserver -r 10.11.1.174:2500 -p 2600 -n obtest -i ppp0
-
-ob init:
-bin/rs_admin -r rootserverip -p 2500 set_obi_role -o OBI_MASTER
-bin/rs_admin -r rootserverip -p 2500 -t 60000000 boot_strap
-
-mysql:(connect to merge server)
-mysql -h mergeserverip –P2880 -uadmin -padmin
-
-
