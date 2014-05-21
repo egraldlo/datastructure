@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "cmysql/CMysqlServer.h"
+#include "cmysql/c_mysql_server.h"
 
 int main(){
 	cout<<"claims mysql module!"<<endl;

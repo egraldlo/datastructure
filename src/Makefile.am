@@ -15,7 +15,7 @@ include_HEADERS = affinity.h\
 				processor.h RegisterChild.h SChild1.h SParent.h\
 				PL.h Compute.h
 				
-bin_PROGRAMS =  cppforwork treetest cserver 
+bin_PROGRAMS = cppforwork treetest cserver lcode
 
 cppforwork_SOURCES = affinity.cpp\
 				BitMap.cpp daemon.cpp\
@@ -28,6 +28,8 @@ treetest_SOURCES = TreeTest.cpp
 
 cserver_SOURCES = CMysql.cpp
 
+lcode_SOURCES = Leetcode.cpp
+
 #生成可执行文件是用LDADD，但是生成.a文件是用LIBADD，
 #后面.o是需要加入的，有没有优雅点的方法呢？但如果只是.h文件呢？
 cppforwork_LDADD = sec/libsec.a sync/libsync.a tree/libtree.a sec/thir/libthir.a ../Log.o
@@ -36,6 +38,8 @@ cppforwork_LDADD = sec/libsec.a sync/libsync.a tree/libtree.a sec/thir/libthir.a
 treetest_LDADD = sec/libsec.a tree/libtree.a sort/libsort.a external/libclaimshdfs.a a/liba.a b/libb.a
 
 cserver_LDADD = cmysql/libcmysql.a
+
+lcode_LDADD = leetcode/libleetcode.a leetcode/Tree/libTree.a common/libcommon.a
 		 
-SUBDIRS = tree sec sync sort external a b cmysql
-DIST_SUBDIRS = tree sec sync sort external a b cmysql
+SUBDIRS = tree sec sync sort external a b cmysql leetcode common
+DIST_SUBDIRS = tree sec sync sort external a b cmysql leetcode common
