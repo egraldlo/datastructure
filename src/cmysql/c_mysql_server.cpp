@@ -97,19 +97,8 @@ void CMysqlServer::on_ioth_start() {
 
 int CMysqlServer::login_handler(easy_connection_t * c) {
 	cout<<"登录处理"<<endl;
-	//将握手报文发送到客户端
+	login_hander_->set_c_server(this);
 	int ret;
-	ret=handshake(c);//use
-    //解析登录认证
-	//ret = parse_packet(c);//use
-	//发送认证结果报文
-    //ret = check_privilege(c, session);//use
-	return ret;
-}
-
-int CMysqlServer::handshake(easy_connection_t * c){
-	cout<<"服务器向客户端发送握手报文！"<<endl;
-	int ret;
-
+	login_hander_->login(c);
 	return ret;
 }

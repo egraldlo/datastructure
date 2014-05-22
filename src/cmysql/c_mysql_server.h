@@ -13,6 +13,7 @@
 
 #include "c_mysql_command_queue_thread.h"
 #include "c_mysql_callback.h"
+#include "c_mysql_loginer.h"
 
 #include <iostream>
 using namespace std;
@@ -28,7 +29,6 @@ public:
 	int start();
 	int initialize();
 	int login_handler(easy_connection_t * c);
-	int handshake(easy_connection_t * c);
 
 public:
     void on_ioth_start();
@@ -47,6 +47,8 @@ private:
 
     easy_io_t* eio_;
     easy_io_handler_pt handler_;
+
+    CMysqlLoginer *login_hander_;
 };
 
 #endif /* CMYSQLSERVER_H_ */
