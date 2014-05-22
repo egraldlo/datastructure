@@ -1,5 +1,6 @@
 #现在写的动态链接库是两个地方都需要写include的文件，这里要想办法将系统中的hadoop_home指定
 AM_CPPFLAGS= -fPIC\
+-I/usr/include/easy \
 -I/home/NewHadoop/hadoop/hadoop-1.0.3/src/c++/libhdfs\
 -I/home/NewHadoop/java/jdk1.7.0_45/include\
 -I/home/NewHadoop/java/jdk1.7.0_45/include/linux
@@ -37,9 +38,11 @@ cppforwork_LDADD = sec/libsec.a sync/libsync.a tree/libtree.a sec/thir/libthir.a
 #如果有多层依赖的话，要在第一层的makefile中写上第三层.a的依赖，但是这个地方是可以优化的感觉。
 treetest_LDADD = sec/libsec.a tree/libtree.a sort/libsort.a external/libclaimshdfs.a a/liba.a b/libb.a
 
-cserver_LDADD = cmysql/libcmysql.a
+cserver_LDADD = /usr/lib64/libeasy.a \
+				/usr/lib64/libeasy.so \
+				cmysql/libcmysql.a 				
 
-lcode_LDADD = leetcode/libleetcode.a leetcode/Tree/libTree.a common/libcommon.a
+lcode_LDADD = leetcode/libleetcode.a leetcode/Tree/libTree.a common/libcommon.a 
 		 
 SUBDIRS = tree sec sync sort external a b cmysql leetcode common
 DIST_SUBDIRS = tree sec sync sort external a b cmysql leetcode common
