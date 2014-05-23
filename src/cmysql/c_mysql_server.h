@@ -20,6 +20,8 @@ using namespace std;
 
 #include <pthread.h>
 
+class CMysqlLoginer;
+
 class CMysqlServer {
 public:
 	CMysqlServer();

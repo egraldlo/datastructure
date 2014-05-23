@@ -60,6 +60,8 @@ int CMysqlServer::start() {
 
 int CMysqlServer::initialize() {
 	cout<<"初始化服务器！"<<endl;
+	//为什么OB在此是没有初始化日志服务器的呢？
+	login_hander_=new CMysqlLoginer();
     memset(&handler_, 0, sizeof(easy_io_handler_pt));
     //ObMySQLCallback这个类要我么来实现，回调类
     handler_.encode=CMysqlCallback::encode;//ObMySQLCallback::encode;
@@ -99,6 +101,6 @@ int CMysqlServer::login_handler(easy_connection_t * c) {
 	cout<<"登录处理"<<endl;
 	login_hander_->set_c_server(this);
 	int ret;
-	login_hander_->login(c);
+	ret=login_hander_->login(c);
 	return ret;
 }
