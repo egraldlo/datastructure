@@ -40,6 +40,7 @@ int CMysqlLoginer::handshake(easy_connection_t* c) {
 	CMysqlHandshakePacket packet;
 //	ThreadSpecificBuffer::Buffer *thread_buffer=buffer_.get_buffer();
 //	ObDataBuffer out_buffer(thread_buffer->current(),thread_buffer->remain());
+	ObDataBuffer out_buffer;
 	packet.set_thread_id(c->seq);
 //	out_buffer.get_position()=0;
 //	ret=packet.serialize(out_buffer.get_data(),out_buffer.get_capacity(),out_buffer.get_position());

@@ -15,6 +15,8 @@ using namespace std;
 #include <string.h>
 #include <stdint.h>
 
+#include "c_define.h"
+
 class CMysqlHandshakePacket {
 public:
 	CMysqlHandshakePacket();
