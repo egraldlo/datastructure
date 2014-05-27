@@ -83,13 +83,13 @@ int CMysqlServer::initialize() {
 
 void CMysqlServer::on_ioth_start() {
   //配置文件传值
-  int affinity_start_cpu=1;
-  int affinity_end_cpu=2;
+  int64_t affinity_start_cpu=1;
+  int64_t affinity_end_cpu=2;
   //检查传值是否正确
   if (0<=affinity_start_cpu&& affinity_start_cpu<= affinity_end_cpu){
     static volatile int cpu = 0;
     //下面这个函数是否在标准库中？
-    int local_cpu=__sync_fetch_and_add(&cpu, 1) % (affinity_end_cpu - affinity_start_cpu + 1) + affinity_start_cpu;
+    int64_t local_cpu=__sync_fetch_and_add(&cpu, 1) % (affinity_end_cpu - affinity_start_cpu + 1) + affinity_start_cpu;
     cpu_set_t cpuset;
     CPU_ZERO(&cpuset);
     CPU_SET(local_cpu, &cpuset);

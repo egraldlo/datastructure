@@ -26,11 +26,11 @@ CMysqlHandshakePacket::~CMysqlHandshakePacket() {
 
 }
 
-void CMysqlHandshakePacket::set_thread_id(int id) {
+void CMysqlHandshakePacket::set_thread_id(uint32_t id) {
 	thread_id_=id;
 }
 
-int CMysqlHandshakePacket::serialize(char *buffer,int len,long int &pos) {
+int CMysqlHandshakePacket::serialize(char *buffer,uint64_t len,uint64_t &pos) {
 	/*------------------报文体-----------------           字节数
 	 *protocol_version_: 协议版本号                         1
 	 *server_version_: 服务器版本信息                        3
