@@ -16,6 +16,7 @@ using namespace std;
 #include <stdint.h>
 
 #include "c_define.h"
+#include "c_mysql_util.h"
 
 class CMysqlHandshakePacket {
 public:
@@ -24,7 +25,7 @@ public:
 
 public:
 	void set_thread_id(uint32_t id);
-	int serialize(char *buffer,uint64_t len,uint64_t &pos);
+	int serialize(char *buffer,int64_t len,int64_t &pos);
 
 private:
     uint8_t protocol_version_;

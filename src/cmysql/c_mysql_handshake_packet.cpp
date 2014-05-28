@@ -30,7 +30,7 @@ void CMysqlHandshakePacket::set_thread_id(uint32_t id) {
 	thread_id_=id;
 }
 
-int CMysqlHandshakePacket::serialize(char *buffer,uint64_t len,uint64_t &pos) {
+int CMysqlHandshakePacket::serialize(char *buffer,int64_t len,int64_t &pos) {
 	/*------------------报文体-----------------           字节数      实现方式
 	 *protocol_version_: 协议版本号                         1       store_int1
 	 *server_version_: 服务器版本信息                        3
@@ -47,8 +47,23 @@ int CMysqlHandshakePacket::serialize(char *buffer,uint64_t len,uint64_t &pos) {
 	 *(header size)pkt_len: 消息长度				          3        store_int3
 	 *(header seq)0： 消息序号                              1        store_int1
 	 */
-	string packet;
 	cout<<"开始序列化报文体和报文头！"<<endl;
+	int64_t pkt_len=48;
+	CMysqlUtil::store_int3(buffer,len,static_cast<uint32_t>(pkt_len),pos);
+	CMysqlUtil::store_int1(buffer,len,0,pos);
+	CMysqlUtil::store_int1(buffer,len,protocol_version_,pos);
+	/*服务器版本信息*/
+	cout<<"服务器版本信息长度： "<<server_version_.length()<<endl;
+	CMysqlUtil::store_str_vzt(buffer,len,server_version_.c_str(),server_version_.length(),pos);
+	CMysqlUtil::store_int4(buffer,len,thread_id_,pos);
+	memcpy(buffer+pos,scramble_buff_,9);pos=pos+9;
+	CMysqlUtil::store_int2(buffer,len,server_capabilities_,pos);
+	CMysqlUtil::store_int1(buffer,len,server_language_,pos);
+	CMysqlUtil::store_int2(buffer,len,server_status_,pos);
+	memcpy(buffer+pos,plugin2_,13);pos=pos+13;
+	memcpy(buffer+pos,plugin2_,12);pos=pos+12;
+	memset(buffer+pos,terminated_,0);pos=pos+1;
+	return 0;
 	//三个字节的 length=48;
 	//一个字节的 seq=0;
 

@@ -10,7 +10,8 @@
 
 #include "easy_io.h"
 
-//#include "data_buffer.h"
+#include "c_mysql_ok_packet.h"
+#include "data_buffer.h"
 
 class CMysqlServer;
 
@@ -26,7 +27,8 @@ public:
 	int check_privilege(easy_connection_t* c);
 
 	void set_c_server(CMysqlServer *server);
-	int write_data(int fd,char *buffer,int length);
+	int write_data(int fd,char *buffer,size_t length);
+	int read_data(int fd, char* buffer,size_t length);
 
 private:
 	CMysqlServer *server_;

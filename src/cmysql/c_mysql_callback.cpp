@@ -21,6 +21,7 @@ int CMysqlCallback::encode(easy_request_t* r, void* packet) {
 
 void* CMysqlCallback::decode(easy_message_t* m) {
 	cout<<"在CMysqlCallback的decode函数中！"<<endl;
+	getchar();
 }
 
 int CMysqlCallback::on_connect(easy_connection_t* c) {
