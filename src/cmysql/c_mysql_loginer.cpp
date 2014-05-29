@@ -28,7 +28,7 @@ int CMysqlLoginer::login(easy_connection_t* c) {
 	ret = parse_packet(c);//use
 	//发送认证结果报文
     ret = check_privilege(c);//use
-//    getchar();
+    getchar();
 	return ret;
 }
 
@@ -113,14 +113,16 @@ int CMysqlLoginer::check_privilege(easy_connection_t* c) {
 
 	cout<<"验证通过，发回OK报文！"<<endl;
 	CMysqlOKPacket *ok_packet=new CMysqlOKPacket();
-	char *buffer=(char *)malloc(2*1024*1024);
-	ObDataBuffer out_buffer(buffer,2*1024*1024);
+	char *buffer=(char *)malloc(16);
+	ObDataBuffer out_buffer(buffer,16);
 	out_buffer.get_position()=0;
-	cout<<"编码数据然后发送！"<<endl;
 	ret=ok_packet->encode(out_buffer.get_data(),out_buffer.get_capacity(),out_buffer.get_position());
 	ret=write_data(c->fd,out_buffer.get_data(),out_buffer.get_position());
-	cout<<"发送数据！"<<endl;
-
+	cout<<"发送数据！"<<out_buffer.get_data()<<out_buffer.get_position()<<endl;
+	char *newa=(char *)malloc(out_buffer.get_position());
+	memcpy(newa,out_buffer.get_data(),out_buffer.get_position());
+	string sss(newa);
+	cout<<"sss: "<<sss.c_str()<<endl;
 	return ret;
 }
 

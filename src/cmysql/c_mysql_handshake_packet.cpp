@@ -46,6 +46,15 @@ int CMysqlHandshakePacket::serialize(char *buffer,int64_t len,int64_t &pos) {
 	 *下面是要放到报文头中
 	 *(header size)pkt_len: 消息长度				          3        store_int3
 	 *(header seq)0： 消息序号                              1        store_int1
+	 [casa@casa ~]$ mysql -h 10.11.1.174 -P2345 --debug-info
+ERROR 2013 (HY000): Lost connection to MySQL server at 'reading authorization packet', system error: 0
+
+User time 0.00, System time 0.00
+Maximum resident set size 2012, Integral resident set size 0
+Non-physical pagefaults 611, Physical pagefaults 0, Swaps 0
+Blocks in 0 out 0, Messages in 0 out 0, Signals 0
+Voluntary context switches 2, Involuntary context switches 2
+	 *(header
 	 */
 	cout<<"开始序列化报文体和报文头！"<<endl;
 	int64_t pkt_len=48;
