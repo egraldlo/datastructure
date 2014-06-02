@@ -60,8 +60,10 @@ int CMysqlOKPacket::serialize(char* buffer, int64_t length, int64_t& pos){
 	cout<<warning_count_<<endl;
 	ret = CMysqlUtil::store_int2(buffer,length,warning_count_,pos);
 	string str(buffer);
-
 	cout<<"传输前的报文内容： "<<str.length()<<endl;
+	const char *hello="hello";
+	memcpy(buffer+pos,hello,5);
+	pos=pos+5;
 //	ret = CMysqlUtil::store_obstr(buffer,length,message_,pos);
 
 	return ret;

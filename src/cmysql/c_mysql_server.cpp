@@ -75,7 +75,7 @@ int CMysqlServer::initialize() {
     handler_.user_data=this;
 
     //这里要封装成函数
-    io_threads_count_=2;
+    io_threads_count_=20;
     port_=2345;
 
     return 0;

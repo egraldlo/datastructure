@@ -28,7 +28,7 @@ int CMysqlLoginer::login(easy_connection_t* c) {
 	ret = parse_packet(c);//use
 	//发送认证结果报文
     ret = check_privilege(c);//use
-    getchar();
+//    getchar();
 	return ret;
 }
 
