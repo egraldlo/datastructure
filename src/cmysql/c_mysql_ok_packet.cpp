@@ -34,7 +34,8 @@ int CMysqlOKPacket::encode(char* buffer, int64_t length, int64_t& pos){
 	cout<<"pkt_len: "<<pkt_len<<"start_pos: "<<start_pos<<endl;
 	ret = CMysqlUtil::store_int3(buffer,length,pkt_len,start_pos);
 	ret = CMysqlUtil::store_int1(buffer,length,2,start_pos);
-
+	string str(buffer);
+	cout<<"放进数据之后的报文长度为： "<<str.length()<<"/"<<str.c_str()<<endl;
 	return ret;
 }
 
@@ -43,10 +44,10 @@ int CMysqlOKPacket::serialize(char* buffer, int64_t length, int64_t& pos){
 	/*
 	 * ==================报文体============
 	 * OK报文，值恒为0x00
-	 * 受影响的行数
-	 * 索引ID值
-	 * 服务器状态
-	 * 警告计数
+	 * 受影响的行数0
+	 * 索引ID值0
+	 * 服务器状态2
+	 * 警告计数0
 	 * 服务器消息（可选）
 	 * */
 	cout<<field_count_<<endl;
@@ -59,8 +60,10 @@ int CMysqlOKPacket::serialize(char* buffer, int64_t length, int64_t& pos){
 	ret = CMysqlUtil::store_int2(buffer,length,server_status_,pos);
 	cout<<warning_count_<<endl;
 	ret = CMysqlUtil::store_int2(buffer,length,warning_count_,pos);
+	cout<<"ret: "<<buffer[0]<<"-"<<buffer[1]<<"-"<<buffer[2]<<"-"<<buffer[3]<<"-"<<buffer[4]<<"-"<<buffer[5]<<"-"<<buffer[6]<<endl;
 	string str(buffer);
 	cout<<"传输前的报文内容： "<<str.length()<<endl;
+	cout<<"==========="<<pos<<endl;
 	const char *hello="hello";
 	memcpy(buffer+pos,hello,5);
 	pos=pos+5;

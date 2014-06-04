@@ -7,6 +7,11 @@
 
 #include "c_mysql_util.h"
 
+#include <string.h>
+
+#include <iostream>
+using namespace std;
+
 #define UINT64_MAX 123413334
 
 CMysqlUtil::CMysqlUtil() {
@@ -31,6 +36,8 @@ int CMysqlUtil::store_int1(char *buf,int64_t len,int8_t v,int64_t &pos){
     else{
         ret=C_SIZE_OVERFLOW;
     }
+	string str(buf);
+	cout<<"check:"<<str.c_str()<<":"<<endl;
     return ret;
 }
 
@@ -46,7 +53,8 @@ int CMysqlUtil::store_int2(char *buf, int64_t len, int16_t v, int64_t &pos){
   {
     ret = C_SIZE_OVERFLOW;
   }
-
+  string str(buf);
+  cout<<"check:"<<str.c_str()<<":"<<endl;
   return ret;
 }
 
