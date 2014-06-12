@@ -14,6 +14,7 @@
 #include "c_mysql_command_queue_thread.h"
 #include "c_mysql_callback.h"
 #include "c_mysql_loginer.h"
+#include "c_mysql_spr_packet.h"
 
 #include <iostream>
 using namespace std;
@@ -28,12 +29,13 @@ public:
 	virtual ~CMysqlServer();
 
 public:
-	int start();
+    void on_ioth_start();
+
+    int start();
 	int initialize();
 	int login_handler(easy_connection_t * c);
+	int post_packet(easy_request_t* req, CMysqlSPRPacket* packet, uint8_t seq);
 
-public:
-    void on_ioth_start();
     static void easy_on_ioth_start(void *arg){
       if (arg != NULL){
         CMysqlServer *server = reinterpret_cast<CMysqlServer*>(arg);
@@ -41,7 +43,22 @@ public:
       }
     }
 
-
+    inline void init_easy_buf(easy_buf_t *buf, char* data, easy_request_t *req, uint64_t size)
+    {
+      if (NULL != buf && NULL != data)
+      {
+        buf->pos = data;
+        buf->last = buf->pos;
+        buf->end = buf->last + size;
+        buf->cleanup = NULL;
+        if (NULL != req && NULL != req->ms)
+        {
+          buf->args = req->ms->pool;
+        }
+        buf->flags = 0;
+        easy_list_init(&buf->node);
+      }
+    }
 private:
 	CMysqlCommandQueueThread command_queue_thread_;
 	int io_threads_count_;

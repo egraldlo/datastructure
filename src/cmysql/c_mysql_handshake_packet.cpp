@@ -8,7 +8,7 @@
 #include "c_mysql_handshake_packet.h"
 
 CMysqlHandshakePacket::CMysqlHandshakePacket() {
-    const char* str = "5.1";
+    const char* str = "5.";
     protocol_version_ = 10;//Protocol::HandshakeV10
     string server_version(str);
     server_version_=server_version;
@@ -66,8 +66,8 @@ Voluntary context switches 2, Involuntary context switches 2
 	cout<<"-----------------------------------pos: "<<pos<<endl;
 	/*服务器版本信息*/
 	cout<<"服务器版本信息长度： "<<server_version_.length()<<endl;
-	memcpy(buffer+pos,server_version_.c_str(),3);pos=pos+3;
-//	CMysqlUtil::store_str_vzt(buffer,len,server_version_.c_str(),server_version_.length(),pos);
+//	memcpy(buffer+pos,server_version_.c_str(),3);pos=pos+3;
+	CMysqlUtil::store_str_vzt(buffer,len,server_version_.c_str(),server_version_.length(),pos);
 	cout<<"-----------------------------------pos: "<<pos<<endl;
 	CMysqlUtil::store_int4(buffer,len,thread_id_,pos);
 	cout<<"-----------------------------------pos: "<<pos<<endl;

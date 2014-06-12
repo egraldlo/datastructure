@@ -6,6 +6,9 @@
  */
 
 #include "c_mysql_callback.h"
+#include "c_mysql_command_packet.h"
+#include "c_mysql_spr_packet.h"
+
 
 CMysqlCallback::CMysqlCallback() {
 
@@ -22,8 +25,81 @@ int CMysqlCallback::encode(easy_request_t* r, void* packet) {
 void* CMysqlCallback::decode(easy_message_t* m) {
 	cout<<"在CMysqlCallback的decode函数中！"<<endl;
 	cout<<"在此解析登录认证报文，然后发回给客户端！"<<endl;
+//	int ret;
+//	CMysqlSPRPacket packet;
+//	char *buffer=(char *)malloc(2*1024*1024);
+//	ObDataBuffer out_buffer(buffer,2*1024*1024);
+//	ret=packet.serialize(out_buffer.get_data(),out_buffer.get_capacity(),out_buffer.get_position());
+////	ret=write_data(m->fd,out_buffer.get_data(),out_buffer.get_position());
+//	return &packet;
 
-	getchar();
+
+
+    uint32_t pkt_len = 0;
+    uint8_t pkt_seq = 0;
+    uint8_t pkt_type = 0;
+    CMysqlCommandPacket* packet = 0;
+    char* buffer = 0;
+    int32_t len = 0;
+
+    len = static_cast<int32_t>(m->input->last - m->input->pos);
+
+    CMysqlUtil::get_uint3(m->input->pos, pkt_len);
+    CMysqlUtil::get_uint1(m->input->pos, pkt_seq);
+
+    cout<<"pkt_len: "<<pkt_len<<endl;
+    cout<<"pkt_seq: "<<pkt_seq<<endl;
+
+
+//    message has enough buffer
+    if (pkt_len <= m->input->last - m->input->pos)
+    {
+      CMysqlUtil::get_uint1(m->input->pos, pkt_type);
+//      利用message带的pool进行应用层内存的分配
+      buffer = reinterpret_cast<char*>(easy_pool_alloc(m->pool,static_cast<uint32_t>(sizeof(CMysqlCommandPacket) + pkt_len)));
+      packet = new(buffer)CMysqlCommandPacket();
+      packet->set_header(pkt_len, pkt_seq);
+      packet->set_type(pkt_type);
+      packet->set_receive_ts(0);
+      memcpy(buffer + sizeof(CMysqlCommandPacket), m->input->pos, pkt_len - 1);
+//		getchar();
+
+
+//      packet->get_command().assign(buffer + sizeof(ObMySQLCommandPacket), pkt_len - 1);
+//        if (PACKET_RECORDER_FLAG)
+//        {
+//          // record the packet to FIFO stream if required
+//          ObMySQLServer* server = reinterpret_cast<ObMySQLServer*>(m->c->handler->user_data);
+//          ObMySQLCommandPacketRecord record;
+//          record.socket_fd_ = m->c->fd;
+//          record.cseq_ = m->c->seq;
+//          record.addr_ = m->c->addr;
+//          record.pkt_length_ = pkt_len;
+//          record.pkt_seq_ = pkt_seq;
+//          record.cmd_type_ = pkt_type;
+//          struct iovec buffers[2];
+//          buffers[0].iov_base = &record;
+//          buffers[0].iov_len = sizeof(record);
+//          buffers[1].iov_base = m->input->pos;
+//          buffers[1].iov_len = pkt_len - 1;
+//          int err = OB_SUCCESS;
+//          if (OB_SUCCESS != (err = server->get_packet_recorder().push(buffers, 2)))
+//          {
+//            TBSYS_LOG(WARN, "failed to record MySQL packet, err=%d", err);
+//          }
+//        }
+//        m->input->pos += pkt_len - 1;
+    }
+//    else
+//    {
+//      m->next_read_len = static_cast<int>(pkt_len - (m->input->last - m->input->pos));
+//      TBSYS_LOG(DEBUG, "not enough data in message, packet length = %u, data in message is %ld",
+//                pkt_len, m->input->last - m->input->pos);
+//      m->input->pos -= OB_MYSQL_PACKET_HEADER_SIZE;
+//    }
+//    return packet;
+
+
 }
 
 int CMysqlCallback::on_connect(easy_connection_t* c) {
@@ -52,6 +128,19 @@ int CMysqlCallback::on_disconnect(easy_connection_t* c) {
 
 int CMysqlCallback::process(easy_request_t* r) {
 	cout<<"在CMysqlCallback的process函数中！"<<endl;
+
+	cout<<"----进入handle_packet_queue处理，然后返回CMysqlSPRPacket报文！----待补充"<<endl;
+
+	CMysqlServer* server = reinterpret_cast<CMysqlServer*>(r->ms->c->handler->user_data);
+
+	char *buffer=(char *)malloc(2*1024*1024);
+	ObDataBuffer out_buffer(buffer,2*1024*1024);
+
+	uint8_t n=4;
+	CMysqlSPRPacket *packet=0;
+	server->post_packet(r,packet,n);
+	//	ret=write_data(m->fd,out_buffer.get_data(),out_buffer.get_position());
+	getchar();
 }
 
 uint64_t CMysqlCallback::get_packet_id(easy_connection_t* c, void* packet) {

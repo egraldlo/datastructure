@@ -44,6 +44,12 @@ int CMysqlServer::start() {
 
     rc = easy_eio_start(eio_);
 
+
+
+
+
+
+
     //这里的原先为EASY_OK == rc,先假设EASY_OK是0
     if(0==rc){
     	cout<<"启动成功！"<<endl;
@@ -102,5 +108,41 @@ int CMysqlServer::login_handler(easy_connection_t * c) {
 	login_hander_->set_c_server(this);
 	int ret;
 	ret=login_hander_->login(c);
+	return ret;
+}
+
+int CMysqlServer::post_packet(easy_request_t* req, CMysqlSPRPacket* packet, uint8_t seq)
+{
+	int ret;
+//	ObDataBuffer buffer;
+	int32_t pkt_len = 0;
+	int64_t len_pos = 0;
+	int64_t pos = 0;
+	uint64_t size = packet->get_serialize_size() + 4;
+
+	char *buffer=(char *)malloc(2*1024*1024);
+	ObDataBuffer out_buffer(buffer,2*1024*1024);
+//	ret=packet.serialize(out_buffer.get_data(),out_buffer.get_capacity(),out_buffer.get_position());
+
+	//同样，还是在message的pool上分配内存
+	easy_buf_t* buf = reinterpret_cast<easy_buf_t*>(easy_pool_alloc(req->ms->pool,static_cast<uint32_t>(sizeof(easy_buf_t) + size)));
+	char* buff = out_buffer.get_data();
+
+	pos += 3;
+	buff = reinterpret_cast<char*>(buf + 1);
+	init_easy_buf(buf, buff, req, size);
+	CMysqlUtil::store_int1(buff, size, seq, pos);
+	ret = packet->serialize(buff, size, pos);
+	len_pos = 0;
+		// 写入包的长度
+	pkt_len = static_cast<int32_t>(pos-4);
+	CMysqlUtil::store_int3(buff, size, pkt_len, len_pos);
+	buf->pos = buff;
+	buf->last = buff + pos;
+	buf->end  = buff + size;
+		//设置output packet
+	req->opacket = reinterpret_cast<void*>(buf);
+		//hex_dump(buf->pos,  static_cast<int32_t>(buf->last - buf->pos), true, TBSYS_LOG_LEVEL_INFO);
+	easy_request_wakeup(req);
 	return ret;
 }
