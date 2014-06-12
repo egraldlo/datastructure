@@ -21,6 +21,8 @@ int CMysqlCallback::encode(easy_request_t* r, void* packet) {
 
 void* CMysqlCallback::decode(easy_message_t* m) {
 	cout<<"在CMysqlCallback的decode函数中！"<<endl;
+	cout<<"在此解析登录认证报文，然后发回给客户端！"<<endl;
+
 	getchar();
 }
 
