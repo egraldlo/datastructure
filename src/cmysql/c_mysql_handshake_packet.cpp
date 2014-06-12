@@ -8,7 +8,7 @@
 #include "c_mysql_handshake_packet.h"
 
 CMysqlHandshakePacket::CMysqlHandshakePacket() {
-    const char* str = "5.5.1";
+    const char* str = "5.1";
     protocol_version_ = 10;//Protocol::HandshakeV10
     string server_version(str);
     server_version_=server_version;
@@ -59,19 +59,32 @@ Voluntary context switches 2, Involuntary context switches 2
 	cout<<"开始序列化报文体和报文头！"<<endl;
 	int64_t pkt_len=48;
 	CMysqlUtil::store_int3(buffer,len,static_cast<uint32_t>(pkt_len),pos);
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	CMysqlUtil::store_int1(buffer,len,0,pos);
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	CMysqlUtil::store_int1(buffer,len,protocol_version_,pos);
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	/*服务器版本信息*/
 	cout<<"服务器版本信息长度： "<<server_version_.length()<<endl;
-	CMysqlUtil::store_str_vzt(buffer,len,server_version_.c_str(),server_version_.length(),pos);
+	memcpy(buffer+pos,server_version_.c_str(),3);pos=pos+3;
+//	CMysqlUtil::store_str_vzt(buffer,len,server_version_.c_str(),server_version_.length(),pos);
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	CMysqlUtil::store_int4(buffer,len,thread_id_,pos);
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	memcpy(buffer+pos,scramble_buff_,9);pos=pos+9;
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	CMysqlUtil::store_int2(buffer,len,server_capabilities_,pos);
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	CMysqlUtil::store_int1(buffer,len,server_language_,pos);
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	CMysqlUtil::store_int2(buffer,len,server_status_,pos);
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	memcpy(buffer+pos,plugin2_,13);pos=pos+13;
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	memcpy(buffer+pos,plugin2_,12);pos=pos+12;
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	memset(buffer+pos,terminated_,0);pos=pos+1;
+	cout<<"-----------------------------------pos: "<<pos<<endl;
 	return 0;
 	//三个字节的 length=48;
 	//一个字节的 seq=0;

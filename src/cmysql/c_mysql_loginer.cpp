@@ -28,7 +28,7 @@ int CMysqlLoginer::login(easy_connection_t* c) {
 	ret = parse_packet(c);//use
 	//发送认证结果报文
     ret = check_privilege(c);//use
-//    getchar();
+    getchar();
 	return ret;
 }
 
@@ -117,29 +117,29 @@ int CMysqlLoginer::check_privilege(easy_connection_t* c) {
 	ObDataBuffer out_buffer(buffer,16);
 	out_buffer.get_position()=0;
 	ret=ok_packet->encode(out_buffer.get_data(),out_buffer.get_capacity(),out_buffer.get_position());
-	char *buff=new char[11];
-//	char buff[12];
-//	for(unsigned i=0;i<12;i++){
-//		buff[i]='u';
-//	}
-	buff[0]=0;
-	buff[1]=0;
-	buff[2]=10;
-	buff[3]=2;
-	buff[4]=0;
-	buff[5]=0;
-	buff[6]=0;
-	buff[7]=0;
-	buff[8]=2;
-	buff[9]=0;
-	buff[10]=0;
-	buff[11]='a';
-	buff[12]='d';
-	buff[13]='d';
-	string bb(buff);
-	cout<<"bb: "<<bb.c_str()<<"length: "<<bb.length()<<endl;
-//	ret=write_data(c->fd,out_buffer.get_data(),out_buffer.get_position());
-	ret=write_data(c->fd,buff,14);
+//	char *buff=new char[11];
+////	char buff[12];
+////	for(unsigned i=0;i<12;i++){
+////		buff[i]='u';
+////	}
+//	buff[0]=0;
+//	buff[1]=0;
+//	buff[2]=10;
+//	buff[3]=2;
+//	buff[4]=0;
+//	buff[5]=0;
+//	buff[6]=0;
+//	buff[7]=0;
+//	buff[8]=2;
+//	buff[9]=0;
+//	buff[10]=0;
+//	buff[11]='a';
+//	buff[12]='d';
+//	buff[13]='d';
+//	string bb(buff);
+//	cout<<"bb: "<<bb.c_str()<<"length: "<<bb.length()<<endl;
+	cout<<"=================: "<<out_buffer.get_position()<<endl;
+	ret=write_data(c->fd,out_buffer.get_data(),out_buffer.get_position());
 	cout<<"发送数据！"<<out_buffer.get_data()<<out_buffer.get_position()<<endl;
 	char *newa=(char *)malloc(out_buffer.get_position());
 	memcpy(newa,out_buffer.get_data(),out_buffer.get_position());
