@@ -23,6 +23,12 @@ using namespace std;
 
 class CMysqlLoginer;
 
+
+//send_result_set
+//process_row_packets
+//send_raw_packet发送最后的结果
+
+//ObMySQLRowPacket
 class CMysqlServer {
 public:
 	CMysqlServer();

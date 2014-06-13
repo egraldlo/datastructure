@@ -20,6 +20,22 @@ CMysqlCallback::~CMysqlCallback() {
 
 int CMysqlCallback::encode(easy_request_t* r, void* packet) {
 	cout<<"在CMysqlCallback的encode函数中！"<<endl;
+    int ret = 0;
+    if (NULL == r || NULL == packet)
+    {
+      cout<<"error!"<<endl;
+      ret = -1;
+    }
+    else
+    {
+      CMysqlSPRPacket *spr=reinterpret_cast<CMysqlSPRPacket *>(packet);
+      cout<<"packet length: "<<spr->get_serialize_size()<<endl;
+      cout<<"packet: "<<*(char*)packet<<endl;
+      easy_buf_t* buf = reinterpret_cast<easy_buf_t*>(packet);
+      easy_request_addbuf(r, buf);
+      cout<<"加入了缓冲区队列！"<<endl;
+    }
+    return ret;
 }
 
 void* CMysqlCallback::decode(easy_message_t* m) {
@@ -46,6 +62,7 @@ void* CMysqlCallback::decode(easy_message_t* m) {
 
     CMysqlUtil::get_uint3(m->input->pos, pkt_len);
     CMysqlUtil::get_uint1(m->input->pos, pkt_seq);
+    cout<<"SQL: "<<m->input->pos<<endl;
 
     cout<<"pkt_len: "<<pkt_len<<endl;
     cout<<"pkt_seq: "<<pkt_seq<<endl;
@@ -62,6 +79,8 @@ void* CMysqlCallback::decode(easy_message_t* m) {
       packet->set_type(pkt_type);
       packet->set_receive_ts(0);
       memcpy(buffer + sizeof(CMysqlCommandPacket), m->input->pos, pkt_len - 1);
+      string ss(buffer);
+      cout<<"command: "<<ss.c_str()<<endl;
 //		getchar();
 
 
@@ -137,10 +156,13 @@ int CMysqlCallback::process(easy_request_t* r) {
 	ObDataBuffer out_buffer(buffer,2*1024*1024);
 
 	uint8_t n=4;
-	CMysqlSPRPacket *packet=0;
+	CMysqlSPRPacket *packet=new CMysqlSPRPacket();
 	server->post_packet(r,packet,n);
 	//	ret=write_data(m->fd,out_buffer.get_data(),out_buffer.get_position());
+    r->ms->c->pool->ref++;
+    easy_atomic_inc(&r->ms->pool->ref);
 	getchar();
+    return C_SUCCESS;
 }
 
 uint64_t CMysqlCallback::get_packet_id(easy_connection_t* c, void* packet) {

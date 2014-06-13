@@ -126,7 +126,7 @@ int CMysqlServer::post_packet(easy_request_t* req, CMysqlSPRPacket* packet, uint
 
 	//同样，还是在message的pool上分配内存
 	easy_buf_t* buf = reinterpret_cast<easy_buf_t*>(easy_pool_alloc(req->ms->pool,static_cast<uint32_t>(sizeof(easy_buf_t) + size)));
-	char* buff = out_buffer.get_data();
+	char* buff = 0;//out_buffer.get_data();
 
 	pos += 3;
 	buff = reinterpret_cast<char*>(buf + 1);
@@ -144,5 +144,6 @@ int CMysqlServer::post_packet(easy_request_t* req, CMysqlSPRPacket* packet, uint
 	req->opacket = reinterpret_cast<void*>(buf);
 		//hex_dump(buf->pos,  static_cast<int32_t>(buf->last - buf->pos), true, TBSYS_LOG_LEVEL_INFO);
 	easy_request_wakeup(req);
+	cout<<"pass easy_request_wakeup and next?"<<endl;
 	return ret;
 }

@@ -8,7 +8,7 @@
 #include "c_mysql_spr_packet.h"
 
 CMysqlSPRPacket::CMysqlSPRPacket()
-: status_(0), statement_id_(0),
+: status_(0x05), statement_id_(0),
   column_num_(0), param_num_(0),
   reserved_(0), warning_count_(0){
 
