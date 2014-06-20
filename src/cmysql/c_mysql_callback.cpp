@@ -83,6 +83,8 @@ void* CMysqlCallback::decode(easy_message_t* m) {
       cout<<"command: "<<ss.c_str()<<endl;
 //		getchar();
 
+      m->input->pos += pkt_len-1;
+
 
 //      packet->get_command().assign(buffer + sizeof(ObMySQLCommandPacket), pkt_len - 1);
 //        if (PACKET_RECORDER_FLAG)
@@ -116,9 +118,7 @@ void* CMysqlCallback::decode(easy_message_t* m) {
 //                pkt_len, m->input->last - m->input->pos);
 //      m->input->pos -= OB_MYSQL_PACKET_HEADER_SIZE;
 //    }
-//    return packet;
-
-
+    return packet;
 }
 
 int CMysqlCallback::on_connect(easy_connection_t* c) {
@@ -161,7 +161,7 @@ int CMysqlCallback::process(easy_request_t* r) {
 	//	ret=write_data(m->fd,out_buffer.get_data(),out_buffer.get_position());
     r->ms->c->pool->ref++;
     easy_atomic_inc(&r->ms->pool->ref);
-	getchar();
+//	getchar();
     return C_SUCCESS;
 }
 

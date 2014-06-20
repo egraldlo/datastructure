@@ -12,6 +12,10 @@ cleanup steps:
 1. make clean
 1. build.sh clean
 
+in my evironment:
+./build.sh init && ./configure --prefix=/home/casa/git/datastructure/install/ && make && make install
+make distclean && ./build.sh clean
+
 this repo is built for finding a job when I graduating from school, at here I will try:
 0, try using makefile to build project
    a, simple build to one single executed file passed!
@@ -23,4 +27,4 @@ this repo is built for finding a job when I graduating from school, at here I wi
 3, sort algorithm and search algorithm
 4, github usage and vim usage
 5, add leetcode for job
-6, add mysql connection pool(进展中，截止目前为止，和"服务器有反应..."的版本有所不同，启动马上退出错误出现)
+6, add mysql connection pool(last packet which server will transfer to client)
