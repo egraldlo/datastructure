@@ -15,3 +15,7 @@ CMysqlRowPacket::CMysqlRowPacket() {
 CMysqlRowPacket::~CMysqlRowPacket() {
 	// TODO 自动生成的析构函数存根
 }
+
+int CMysqlRowPacket::serialize(char *buffer, int64_t length, int64_t& pos) {
+	return 0;
+}

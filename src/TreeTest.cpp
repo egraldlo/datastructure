@@ -11,7 +11,6 @@ int main(){
 	BStree<int> * bst=new BStree<int>();
 	bst->Insert(1);
 	bst->Delete(2);
-	bst->Display();
 
 
 	cout<<"---------------bound------------"<<endl;

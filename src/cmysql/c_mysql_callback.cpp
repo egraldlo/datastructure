@@ -63,6 +63,8 @@ void* CMysqlCallback::decode(easy_message_t* m) {
     CMysqlUtil::get_uint3(m->input->pos, pkt_len);
     CMysqlUtil::get_uint1(m->input->pos, pkt_seq);
     cout<<"SQL: "<<m->input->pos<<endl;
+//    CMysqlServer *server=new CMysqlServer();
+//    server->do_com_query(m->input->pos);
 
     cout<<"pkt_len: "<<pkt_len<<endl;
     cout<<"pkt_seq: "<<pkt_seq<<endl;
@@ -81,6 +83,7 @@ void* CMysqlCallback::decode(easy_message_t* m) {
       memcpy(buffer + sizeof(CMysqlCommandPacket), m->input->pos, pkt_len - 1);
       string ss(buffer);
       cout<<"command: "<<ss.c_str()<<endl;
+
 //		getchar();
 
       m->input->pos += pkt_len-1;
@@ -149,8 +152,8 @@ int CMysqlCallback::process(easy_request_t* r) {
 	cout<<"在CMysqlCallback的process函数中！"<<endl;
 
 	cout<<"----进入handle_packet_queue处理，然后返回CMysqlSPRPacket报文！----待补充"<<endl;
-
 	CMysqlServer* server = reinterpret_cast<CMysqlServer*>(r->ms->c->handler->user_data);
+//	server->do_com_query(r,"hello");
 
 	char *buffer=(char *)malloc(2*1024*1024);
 	ObDataBuffer out_buffer(buffer,2*1024*1024);
@@ -158,9 +161,11 @@ int CMysqlCallback::process(easy_request_t* r) {
 	uint8_t n=4;
 	CMysqlSPRPacket *packet=new CMysqlSPRPacket();
 	server->post_packet(r,packet,n);
+
 	//	ret=write_data(m->fd,out_buffer.get_data(),out_buffer.get_position());
     r->ms->c->pool->ref++;
     easy_atomic_inc(&r->ms->pool->ref);
+
 //	getchar();
     return C_SUCCESS;
 }

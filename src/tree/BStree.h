@@ -11,7 +11,7 @@
 #include <iostream>
 using namespace std;
 
-#include "../sort/SortAlgorithms.h"
+#include <malloc.h>
 
 /*
  * 二叉树性质（二叉搜索树）：
@@ -40,26 +40,53 @@ public:
 	virtual ~BStree(){};
 
 public:
-	void Insert(Value value);
-	void Delete(Value value);
+	node<Value> *getRoot(){
+		return root;
+	};
+
+	bool Insert(Value value);
+	bool Delete(Value value);
 	bool Search(node<Value> *treenode,Value value);
-	void Display();
+
+	int Display(node<Value> *root);
+
+	void Recurse_PreorderTraverse(node<Value> *root);
+	void Recurse_PostorderTraverse(node<Value> *root);
+	void Recurse_InorderTraverse(node<Value> *root);
+
+	void Iterate_PreorderTraverse(node<Value> *root);
+	void Iterate_PostorderTraverse(node<Value> *root);
+	void Iterate_InorderTraverse(node<Value> *root);
 
 private:
 	node<Value> * root;
 };
 
+//template <typename Value>
+//BStree::node<Value> * BStree<Value>::
+//getRoot(){
+//	return root;
+//}
+
 //C++编译器不支持对模板的分离式编译，将成员函数的实现放在.h文件中
 template <typename Value>
-void BStree<Value>::
+bool BStree<Value>::
 Insert(Value value){
-	cout<<"向树中插入一个值！"<<value<<endl;
+//	Insert(node<Value> *treenode, Value value){
+//	if(!Search(treenode,value)){
+//
+//	}
+//	else{
+//		return false;
+//	}
+	cout<<"待完善的接口！"<<endl;
+	return true;
 }
 
 template <typename Value>
-void BStree<Value>::
+bool BStree<Value>::
 Delete(Value value){
-	cout<<"删除树中的某个值！"<<value<<endl;
+	return true;
 }
 
 template <typename Value>
@@ -81,13 +108,56 @@ Search(node<Value> *treenode,Value value){
 }
 
 template <typename Value>
-void BStree<Value>::
-Display(){
-	cout<<"输出这棵树上所有的值！"<<endl;
+int BStree<Value>::
+Display(node<Value> *root){
+	if(root==0){
+		return 0;
+	}
+	else{
+		cout<<"=========== tree node value is: "<<root->value<<endl;
+		if(root->left!=0){
+			Display(root->left);
+		}
+		if(root->right!=0){
+			Display(root->right);
+		}
+	}
+}
 
-	cout<<"test makefile!!!"<<endl;
-	SortAlgorithms *sort=new SortAlgorithms();
-	sort->init();
+template <typename Value>
+void BStree<Value>::
+Recurse_PreorderTraverse(node<Value> *root){
+
+}
+
+template <typename Value>
+void BStree<Value>::
+Recurse_InorderTraverse(node<Value> *root){
+
+}
+
+template <typename Value>
+void BStree<Value>::
+Recurse_PostorderTraverse(node<Value> *root){
+
+}
+
+template <typename Value>
+void BStree<Value>::
+Iterate_PreorderTraverse(node<Value> *root){
+
+}
+
+template <typename Value>
+void BStree<Value>::
+Iterate_InorderTraverse(node<Value> *root){
+
+}
+
+template <typename Value>
+void BStree<Value>::
+Iterate_PostorderTraverse(node<Value> *root){
+
 }
 
 #endif /* BSTREE_H_ */

@@ -111,6 +111,87 @@ int CMysqlServer::login_handler(easy_connection_t * c) {
 	return ret;
 }
 
+void CMysqlServer::do_com_query(easy_request_t *r,string query){
+	string new_query=query.substr(1,query.size());
+	cout<<"I am handlering the query: "<<new_query.c_str()<<endl;
+	cout<<"OK, I have finished some query and will send the result set back, here type is 1!"<<endl;
+	send_response(r,1);
+	cout<<"one query is ok!"<<endl;
+}
+
+void CMysqlServer::send_response(easy_request_t* req, int type){
+	cout<<"send response!"<<endl;
+	cout<<"在此模拟result set然后发送！"<<endl;
+    easy_addr_t addr = get_easy_addr(req);
+//    int number = packet->get_packet_header().seq_;
+
+    //在此先构造一下server_status
+    uint16_t server_status =0;
+
+    uint16_t charset;
+
+	send_result_set(req,type,server_status,charset);
+}
+
+void CMysqlServer::send_result_set(easy_request_t *req,int type,uint16_t server_status, uint16_t charset){
+	cout<<"send result set!"<<endl;
+    int64_t buffer_length = 0;
+    int64_t buffer_pos = 0;
+
+	easy_addr_t addr = get_easy_addr(req);
+	easy_buf_t* buf = reinterpret_cast<easy_buf_t*>(easy_pool_alloc(req->ms->pool, 2*1024*1024));
+
+    char *data_buffer = reinterpret_cast<char *>(buf + 1);
+    buffer_length = 2*1024*1024 - sizeof(easy_buf_t);
+    init_easy_buf(buf, data_buffer, req, buffer_length);
+
+    /* result 在这里模拟result */
+
+	process_res_header_packet(buf, buffer_pos, req);
+//	process_field_packet(buf, buffer_pos, req, result, true, charset);
+//	process_eof_packet(buf, buffer_pos, req, result, server_status);
+//	process_row_packet(buf, buffer_pos, req, result, type);
+//	process_eof_packet(buf, buffer_pos, req, result, server_status);
+}
+
+void CMysqlServer::process_eof_packet(){
+	cout<<"send eof packet!"<<endl;
+//	process_single_packet();
+}
+
+void CMysqlServer::process_field_packet(){
+	cout<<"send field packet!"<<endl;
+//	process_single_packet();
+}
+
+void CMysqlServer::process_res_header_packet(easy_buf_t *&buff, int64_t &buff_pos, easy_request_t *req){
+	cout<<"send res header packet!"<<endl;
+	int ret=C_SUCCESS;
+	CMysqlResHeaderPacket *header=new CMysqlResHeaderPacket();
+	/* 在此模拟发送两个列 */
+	header->set_field_count(2);
+	/* 设置seq */
+	ret=process_single_packet(buff,buff_pos,req,header);
+	cout<<"check ret here: "<<ret<<endl;
+}
+
+void CMysqlServer::process_row_packet(){
+	cout<<"send row packet!"<<endl;
+//	process_single_packet();
+}
+
+int CMysqlServer::process_single_packet(easy_buf_t *&buff, int64_t &buff_pos, easy_request_t *req, CMysqlSQLPacket *packet){
+	int ret=C_SUCCESS;
+	easy_addr_t addr=get_easy_addr(req);
+	/* 对packet加头 */
+	packet->encode();
+
+	buff->last=buff->pos+buff_pos;
+	req->opacket=reinterpret_cast<void *>(buff);
+	ret=send_raw_packet(req);
+	return ret;
+}
+
 int CMysqlServer::post_packet(easy_request_t* req, CMysqlSPRPacket* packet, uint8_t seq)
 {
 	int ret;
@@ -146,4 +227,28 @@ int CMysqlServer::post_packet(easy_request_t* req, CMysqlSPRPacket* packet, uint
 	easy_request_wakeup(req);
 	cout<<"pass easy_request_wakeup and next?"<<endl;
 	return ret;
+}
+
+int CMysqlServer::send_raw_packet(easy_request_t *req)
+{
+  int ret = C_SUCCESS;
+  easy_buf_t *buf = static_cast<easy_buf_t*>(req->opacket);
+  if (NULL != buf){
+  	  cout<<"buf is null and error occurred in c_mysql_server.cpp:198"<<endl;
+  }
+
+  easy_client_wait_t wait_obj;
+  wait_obj.done_count = 0;
+  easy_client_wait_init(&wait_obj);
+  req->client_wait = &wait_obj;
+  req->retcode = EASY_AGAIN;
+  req->waiting = 1;
+  //io线程被唤醒，r->opacket被挂过去,send_response->easy_connection_request_done
+  easy_request_wakeup(req);
+  // IO线程回调 int ObMySQLCallback::process(easy_request_t* r)的时候唤醒工作线程
+  wait_client_obj(wait_obj);
+  easy_client_wait_cleanup(&wait_obj);
+  req->client_wait = NULL;
+
+  return ret;
 }

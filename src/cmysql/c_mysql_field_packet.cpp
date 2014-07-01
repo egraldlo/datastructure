@@ -14,3 +14,7 @@ CMysqlFieldPacket::CMysqlFieldPacket() {
 CMysqlFieldPacket::~CMysqlFieldPacket() {
 
 }
+
+int CMysqlFieldPacket::serialize(char *buffer, int64_t length, int64_t& pos) {
+	return 0;
+}
