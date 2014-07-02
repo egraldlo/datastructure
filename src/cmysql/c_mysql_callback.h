@@ -28,6 +28,10 @@ public:
 	static int process(easy_request_t* r);
 	static uint64_t get_packet_id(easy_connection_t* c, void* packet);
 	static int clean_up(easy_request_t *r, void *apacket);
+
+private:
+	static int debug_;
+
 };
 
 #endif /* CMYSQLCALLBACK_H_ */

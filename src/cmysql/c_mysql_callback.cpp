@@ -9,6 +9,7 @@
 #include "c_mysql_command_packet.h"
 #include "c_mysql_spr_packet.h"
 
+int CMysqlCallback::debug_ = 0;
 
 CMysqlCallback::CMysqlCallback() {
 
@@ -153,7 +154,8 @@ int CMysqlCallback::process(easy_request_t* r) {
 
 	cout<<"----进入handle_packet_queue处理，然后返回CMysqlSPRPacket报文！----待补充"<<endl;
 	CMysqlServer* server = reinterpret_cast<CMysqlServer*>(r->ms->c->handler->user_data);
-//	server->do_com_query(r,"hello");
+	if(debug_>=1)
+		server->do_com_query(r,"hello");
 
 	char *buffer=(char *)malloc(2*1024*1024);
 	ObDataBuffer out_buffer(buffer,2*1024*1024);
@@ -167,6 +169,7 @@ int CMysqlCallback::process(easy_request_t* r) {
     easy_atomic_inc(&r->ms->pool->ref);
 
 //	getchar();
+    debug_++;
     return C_SUCCESS;
 }
 
