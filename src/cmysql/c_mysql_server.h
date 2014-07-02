@@ -100,12 +100,16 @@ public:
 
     inline void wait_client_obj(easy_client_wait_t& client_wait)
     {
+      cout<<"111"<<endl;
       pthread_mutex_lock(&client_wait.mutex);
+      cout<<"222"<<endl;
       if (client_wait.done_count == 0)
       {
+      	cout<<"333"<<endl;
         //unlock同时wait在cond上，等待网络框架将其唤醒,唤醒的时候同时获得锁
         pthread_cond_wait(&client_wait.cond, &client_wait.mutex);
       }
+  	  cout<<"444"<<endl;
       pthread_mutex_unlock(&client_wait.mutex);
     }
 

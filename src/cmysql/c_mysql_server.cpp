@@ -115,6 +115,8 @@ void CMysqlServer::do_com_query(easy_request_t *r,string query){
 	string new_query=query.substr(1,query.size());
 	cout<<"I am handlering the query: "<<new_query.c_str()<<endl;
 	cout<<"OK, I have finished some query and will send the result set back, here type is 1!"<<endl;
+	cout<<"=======before is ok!=======in do_com_query"<<endl;
+	////getchar();
 	send_response(r,1);
 	cout<<"one query is ok!"<<endl;
 }
@@ -129,7 +131,8 @@ void CMysqlServer::send_response(easy_request_t* req, int type){
     uint16_t server_status =0;
 
     uint16_t charset;
-
+	cout<<"=======before is ok!=======in send_response"<<endl;
+	////getchar();
 	send_result_set(req,type,server_status,charset);
 }
 
@@ -146,7 +149,8 @@ void CMysqlServer::send_result_set(easy_request_t *req,int type,uint16_t server_
     init_easy_buf(buf, data_buffer, req, buffer_length);
 
     /* result 在这里模拟result */
-
+	cout<<"=======before is ok!=======in send_result_set"<<endl;
+	//getchar();
 	process_res_header_packet(buf, buffer_pos, req);
 //	process_field_packet(buf, buffer_pos, req, result, true, charset);
 //	process_eof_packet(buf, buffer_pos, req, result, server_status);
@@ -170,6 +174,8 @@ void CMysqlServer::process_res_header_packet(easy_buf_t *&buff, int64_t &buff_po
 	CMysqlResHeaderPacket *header=new CMysqlResHeaderPacket();
 	/* 在此模拟发送两个列 */
 	header->set_field_count(2);
+	cout<<"=======before is ok!=======in process_res_header_packet"<<endl;
+	//getchar();
 	/* 设置seq */
 	ret=process_single_packet(buff,buff_pos,req,header);
 	cout<<"check ret here: "<<ret<<endl;
@@ -188,6 +194,8 @@ int CMysqlServer::process_single_packet(easy_buf_t *&buff, int64_t &buff_pos, ea
 
 	buff->last=buff->pos+buff_pos;
 	req->opacket=reinterpret_cast<void *>(buff);
+	cout<<"=======before is ok!=======in process_single_packet"<<endl;
+	//getchar();
 	ret=send_raw_packet(req);
 	return ret;
 }
@@ -234,21 +242,28 @@ int CMysqlServer::send_raw_packet(easy_request_t *req)
   int ret = C_SUCCESS;
   easy_buf_t *buf = static_cast<easy_buf_t*>(req->opacket);
   if (NULL != buf){
-  	  cout<<"buf is null and error occurred in c_mysql_server.cpp:198"<<endl;
+  	  cout<<"this is a ob_stat_inc func!"<<endl;
+
   }
 
   easy_client_wait_t wait_obj;
+  cout<<"test in send pacekt to client!--1"<<endl;
   wait_obj.done_count = 0;
   easy_client_wait_init(&wait_obj);
+  cout<<"test in send pacekt to client!--1.5"<<endl;
   req->client_wait = &wait_obj;
   req->retcode = EASY_AGAIN;
   req->waiting = 1;
   //io线程被唤醒，r->opacket被挂过去,send_response->easy_connection_request_done
   easy_request_wakeup(req);
+  cout<<"test in send pacekt to client!--2"<<endl;
   // IO线程回调 int ObMySQLCallback::process(easy_request_t* r)的时候唤醒工作线程
   wait_client_obj(wait_obj);
+  cout<<"test in send pacekt to client!--3"<<endl;
   easy_client_wait_cleanup(&wait_obj);
+  cout<<"test in send pacekt to client!--4"<<endl;
   req->client_wait = NULL;
 
+  cout<<"test in send pacekt to client!--5"<<endl;
   return ret;
 }
