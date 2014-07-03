@@ -35,6 +35,11 @@ class CMysqlLoginer;
 //process_row_packets
 //send_raw_packet发送最后的结果
 
+struct Args{
+	CMysqlServer *cserver;
+	easy_request_t *r;
+};
+
 //ObMySQLRowPacket
 class CMysqlServer {
 public:
@@ -50,7 +55,7 @@ public:
 	int post_packet(easy_request_t* req, CMysqlSPRPacket* packet, uint8_t seq);
 	int send_raw_packet(easy_request_t *req);
 
-	void do_com_query(easy_request_t *r, string query);
+	static void do_com_query(void *);
 	void send_response(easy_request_t *req, int type);
 	void send_result_set(easy_request_t *req,int type,uint16_t server_status, uint16_t charset);
 
@@ -115,6 +120,9 @@ public:
       pthread_mutex_unlock(&client_wait.mutex);
     }
 
+public:
+    Thread_Pool *threadpool;
+
 private:
 	CMysqlCommandQueueThread command_queue_thread_;
 	int io_threads_count_;
@@ -124,7 +132,6 @@ private:
     easy_io_handler_pt handler_;
 
     CMysqlLoginer *login_hander_;
-    Thread_Pool *threadpool;
 };
 
 #endif /* CMYSQLSERVER_H_ */

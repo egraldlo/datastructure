@@ -67,8 +67,8 @@ void *Thread_Pool::threadpool_thread(void *arg){
 	Task *task=new Task();
 	//这是线程池创建的一个程序块，这里其实是一个for循环，一直在等待add函数添加一个函数去给执行
 	while(1){
-//		cout<<">>>>>>here in thread "<<endl;
 		pthread_mutex_lock(&(Pthis->lock));
+		cout<<">>>>>>here in thread "<<endl;
 //		cout<<">>>>>>here in thread, pass the lock"<<endl;
 		//如果还没有一个任务到来的话，证明进入这个锁之后的任务是第一个创建之后还没有得到得到任务的那个线程，
 		//这样的话就一直循环等待，当没有任务的时候你肯定要等待，不然你拿什么去做，但是这个地方一定要这个循环吗？

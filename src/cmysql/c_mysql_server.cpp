@@ -8,7 +8,8 @@
 #include "c_mysql_server.h"
 
 CMysqlServer::CMysqlServer() {
-
+	threadpool=new Thread_Pool();
+	threadpool->Thread_Pool_init(10,5);
 }
 
 CMysqlServer::~CMysqlServer() {
@@ -111,13 +112,15 @@ int CMysqlServer::login_handler(easy_connection_t * c) {
 	return ret;
 }
 
-void CMysqlServer::do_com_query(easy_request_t *r,string query){
-	string new_query=query.substr(1,query.size());
-	cout<<"I am handlering the query: "<<new_query.c_str()<<endl;
+void CMysqlServer::do_com_query(void *arg){
+//	void CMysqlServer::do_com_query(easy_request_t *r,string query){
+//	string new_query=query.substr(1,query.size());
+//	cout<<"I am handlering the query: "<<new_query.c_str()<<endl;
 	cout<<"OK, I have finished some query and will send the result set back, here type is 1!"<<endl;
 	cout<<"=======before is ok!=======in do_com_query"<<endl;
 	////getchar();
-	send_response(r,1);
+	Args *pthis=reinterpret_cast<Args *>(arg);
+	pthis->cserver->send_response(pthis->r,1);
 	cout<<"one query is ok!"<<endl;
 }
 

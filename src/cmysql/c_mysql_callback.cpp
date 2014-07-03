@@ -150,27 +150,32 @@ int CMysqlCallback::on_disconnect(easy_connection_t* c) {
 int CMysqlCallback::process(easy_request_t* r) {
 	cout<<"在CMysqlCallback的process函数中！"<<endl;
 
+	int ret;
 	easy_pool_set_lock(r->ms->pool);
 	cout<<"----进入handle_packet_queue处理，然后返回CMysqlSPRPacket报文！----待补充"<<endl;
 	CMysqlServer* server = reinterpret_cast<CMysqlServer*>(r->ms->c->handler->user_data);
+	Args *ar=new Args();
+	ar->cserver=server;
+	ar->r=r;
 	if(debug_>=1){
-		server->do_com_query(r,"hello");
+		server->threadpool->Thread_Pool_add(&(server->do_com_query),ar);
+		r->ms->c->pool->ref++;
+		easy_atomic_inc(&r->ms->pool->ref);
+		ret=-11;
 	}
+	else{
+		char *buffer=(char *)malloc(2*1024*1024);
+		ObDataBuffer out_buffer(buffer,2*1024*1024);
 
-	char *buffer=(char *)malloc(2*1024*1024);
-	ObDataBuffer out_buffer(buffer,2*1024*1024);
-
-	uint8_t n=4;
-	CMysqlSPRPacket *packet=new CMysqlSPRPacket();
-	server->post_packet(r,packet,n);
-
-	//	ret=write_data(m->fd,out_buffer.get_data(),out_buffer.get_position());
-    r->ms->c->pool->ref++;
-    easy_atomic_inc(&r->ms->pool->ref);
-
-//	getchar();
-    debug_++;
-    return -11;
+		uint8_t n=4;
+		CMysqlSPRPacket *packet=new CMysqlSPRPacket();
+		server->post_packet(r,packet,n);
+		r->ms->c->pool->ref++;
+		easy_atomic_inc(&r->ms->pool->ref);
+		ret=-11;
+		debug_++;
+	}
+    return ret;
 }
 
 uint64_t CMysqlCallback::get_packet_id(easy_connection_t* c, void* packet) {
