@@ -243,7 +243,6 @@ int CMysqlServer::send_raw_packet(easy_request_t *req)
   easy_buf_t *buf = static_cast<easy_buf_t*>(req->opacket);
   if (NULL != buf){
   	  cout<<"this is a ob_stat_inc func!"<<endl;
-
   }
 
   easy_client_wait_t wait_obj;
@@ -252,13 +251,18 @@ int CMysqlServer::send_raw_packet(easy_request_t *req)
   easy_client_wait_init(&wait_obj);
   cout<<"test in send pacekt to client!--1.5"<<endl;
   req->client_wait = &wait_obj;
-  req->retcode = EASY_AGAIN;
+  req->retcode = -11;
   req->waiting = 1;
   //io线程被唤醒，r->opacket被挂过去,send_response->easy_connection_request_done
   easy_request_wakeup(req);
   cout<<"test in send pacekt to client!--2"<<endl;
   // IO线程回调 int ObMySQLCallback::process(easy_request_t* r)的时候唤醒工作线程
+  /* 卡在这里的原因是，这里现在还是同步的，不是异步的 */
   wait_client_obj(wait_obj);
+  if(wait_obj.status==3){
+	  cout<<"wait_obj.status exists?"<<endl;
+	  ret=-124;
+  }
   cout<<"test in send pacekt to client!--3"<<endl;
   easy_client_wait_cleanup(&wait_obj);
   cout<<"test in send pacekt to client!--4"<<endl;

@@ -150,6 +150,7 @@ int CMysqlCallback::on_disconnect(easy_connection_t* c) {
 int CMysqlCallback::process(easy_request_t* r) {
 	cout<<"在CMysqlCallback的process函数中！"<<endl;
 
+	easy_pool_set_lock(r->ms->pool);
 	cout<<"----进入handle_packet_queue处理，然后返回CMysqlSPRPacket报文！----待补充"<<endl;
 	CMysqlServer* server = reinterpret_cast<CMysqlServer*>(r->ms->c->handler->user_data);
 	if(debug_>=1){
@@ -169,7 +170,7 @@ int CMysqlCallback::process(easy_request_t* r) {
 
 //	getchar();
     debug_++;
-    return C_SUCCESS;
+    return -11;
 }
 
 uint64_t CMysqlCallback::get_packet_id(easy_connection_t* c, void* packet) {

@@ -21,7 +21,8 @@ libcmysql_a_SOURCES = \
 	c_mysql_row_packet.cpp						c_mysql_row_packet.h \
 	c_mysql_res_header_packet.cpp				c_mysql_res_header_packet.h \
 	c_mysql_field_packet.cpp					c_mysql_field_packet.h \
-	c_mysql_sql_packet.cpp						c_mysql_sql_packet.h
+	c_mysql_sql_packet.cpp						c_mysql_sql_packet.h \
+	Thread_Pool.cpp								Thread_Pool.h
 
 #生成静态连接库的时候需要用*_a_LIBADD而不是*_a_LDADD
 libcmysql_a_LIBADD = /usr/lib64/libeasy.a

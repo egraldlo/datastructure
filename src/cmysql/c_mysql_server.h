@@ -19,6 +19,8 @@
 #include "c_mysql_res_header_packet.h"
 #include "c_mysql_sql_packet.h"
 
+#include "Thread_Pool.h"
+
 #include <iostream>
 using namespace std;
 
@@ -122,6 +124,7 @@ private:
     easy_io_handler_pt handler_;
 
     CMysqlLoginer *login_hander_;
+    Thread_Pool *threadpool;
 };
 
 #endif /* CMYSQLSERVER_H_ */
