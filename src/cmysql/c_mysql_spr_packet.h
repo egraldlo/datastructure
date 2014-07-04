@@ -54,9 +54,9 @@ public:
       len += 2;                 // column num
       len += 2;                 // param num
       len += 1;                 // reserved
+    }
       len += 2;                 // warning count
       return len;
-    }
 
 private:
     uint8_t  status_;

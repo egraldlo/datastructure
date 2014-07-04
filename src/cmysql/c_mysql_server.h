@@ -107,7 +107,6 @@ public:
 
     inline void wait_client_obj(easy_client_wait_t& client_wait)
     {
-      cout<<"111"<<endl;
       pthread_mutex_lock(&client_wait.mutex);
       cout<<"222"<<endl;
       if (client_wait.done_count == 0)

@@ -19,10 +19,6 @@
     int4store((T),def_temp);                                            \
     int4store((T+4),def_temp2); } while(0)
 
-
-
-
-
 #define uint3korr(A)	(uint32_t) (((uint32_t) ((uint8_t) (A)[0])) +   \
                                     (((uint32_t) ((uint8_t) (A)[1])) << 8) + \
                                     (((uint32_t) ((uint8_t) (A)[2])) << 16))

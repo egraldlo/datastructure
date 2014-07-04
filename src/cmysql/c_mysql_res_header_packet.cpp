@@ -26,8 +26,8 @@ inline uint64_t CMysqlResHeaderPacket::get_field_count() const {
 };
 
 uint64_t CMysqlResHeaderPacket::get_serialize_size(){
-  uint64_t len = 0;
-  /* MAX_STORE_LENGTH */
-  len += 9; // field_count_
-  return len;
+	uint64_t len = 0;
+	/* MAX_STORE_LENGTH */
+	len += 9; // field_count_
+	return len;
 }

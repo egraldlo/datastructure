@@ -9,7 +9,7 @@
 
 CMysqlServer::CMysqlServer() {
 	threadpool=new Thread_Pool();
-	threadpool->Thread_Pool_init(10,5);
+	threadpool->Thread_Pool_init(1,1);
 }
 
 CMysqlServer::~CMysqlServer() {
@@ -33,10 +33,7 @@ int CMysqlServer::start() {
     eio_->uthread_enable = 0;
 	command_queue_thread_.init();
 	eio_->tcp_defer_accept = 0;
-
 	ret=initialize();
-	cout<<"initialize()返回为： "<<ret<<endl;
-
     if(NULL==(listen=easy_connection_add_listen(eio_, NULL, port_, &handler_))){
     	cout<<"启动监听错误！"<<endl;
     }else{
@@ -44,12 +41,6 @@ int CMysqlServer::start() {
     }
 
     rc = easy_eio_start(eio_);
-
-
-
-
-
-
 
     //这里的原先为EASY_OK == rc,先假设EASY_OK是0
     if(0==rc){
@@ -63,6 +54,7 @@ int CMysqlServer::start() {
     if(0==ret){
         easy_eio_wait(eio_);
     }
+    return ret;
 }
 
 int CMysqlServer::initialize() {
@@ -80,7 +72,6 @@ int CMysqlServer::initialize() {
     handler_.on_connect=CMysqlCallback::on_connect;//ObMySQLCallback::on_connect;
     handler_.cleanup=CMysqlCallback::clean_up;//ObMySQLCallback::clean_up;
     handler_.user_data=this;
-
     //这里要封装成函数
     io_threads_count_=20;
     port_=2345;
@@ -113,15 +104,11 @@ int CMysqlServer::login_handler(easy_connection_t * c) {
 }
 
 void CMysqlServer::do_com_query(void *arg){
-//	void CMysqlServer::do_com_query(easy_request_t *r,string query){
-//	string new_query=query.substr(1,query.size());
-//	cout<<"I am handlering the query: "<<new_query.c_str()<<endl;
 	cout<<"OK, I have finished some query and will send the result set back, here type is 1!"<<endl;
 	cout<<"=======before is ok!=======in do_com_query"<<endl;
-	////getchar();
 	Args *pthis=reinterpret_cast<Args *>(arg);
 	pthis->cserver->send_response(pthis->r,1);
-	cout<<"one query is ok!"<<endl;
+	cout<<"one query is has done!"<<endl;
 }
 
 void CMysqlServer::send_response(easy_request_t* req, int type){
@@ -129,13 +116,10 @@ void CMysqlServer::send_response(easy_request_t* req, int type){
 	cout<<"在此模拟result set然后发送！"<<endl;
     easy_addr_t addr = get_easy_addr(req);
 //    int number = packet->get_packet_header().seq_;
-
     //在此先构造一下server_status
     uint16_t server_status =0;
-
     uint16_t charset;
 	cout<<"=======before is ok!=======in send_response"<<endl;
-	////getchar();
 	send_result_set(req,type,server_status,charset);
 }
 
@@ -153,7 +137,6 @@ void CMysqlServer::send_result_set(easy_request_t *req,int type,uint16_t server_
 
     /* result 在这里模拟result */
 	cout<<"=======before is ok!=======in send_result_set"<<endl;
-	//getchar();
 	process_res_header_packet(buf, buffer_pos, req);
 //	process_field_packet(buf, buffer_pos, req, result, true, charset);
 //	process_eof_packet(buf, buffer_pos, req, result, server_status);
@@ -249,28 +232,21 @@ int CMysqlServer::send_raw_packet(easy_request_t *req)
   }
 
   easy_client_wait_t wait_obj;
-  cout<<"test in send pacekt to client!--1"<<endl;
   wait_obj.done_count = 0;
+  //用于IO线程唤醒工作线程
   easy_client_wait_init(&wait_obj);
-  cout<<"test in send pacekt to client!--1.5"<<endl;
   req->client_wait = &wait_obj;
   req->retcode = -11;
   req->waiting = 1;
   //io线程被唤醒，r->opacket被挂过去,send_response->easy_connection_request_done
   easy_request_wakeup(req);
-  cout<<"test in send pacekt to client!--2"<<endl;
   // IO线程回调 int ObMySQLCallback::process(easy_request_t* r)的时候唤醒工作线程
   /* 卡在这里的原因是，这里现在还是同步的，不是异步的 */
   wait_client_obj(wait_obj);
   if(wait_obj.status==3){
-	  cout<<"wait_obj.status exists?"<<endl;
 	  ret=-124;
   }
-  cout<<"test in send pacekt to client!--3"<<endl;
   easy_client_wait_cleanup(&wait_obj);
-  cout<<"test in send pacekt to client!--4"<<endl;
   req->client_wait = NULL;
-
-  cout<<"test in send pacekt to client!--5"<<endl;
   return ret;
 }

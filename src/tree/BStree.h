@@ -124,6 +124,9 @@ Display(node<Value> *root){
 	}
 }
 
+/* 二叉搜索树的遍历一般分为迭代方式和递归方式两种
+ * 在迭代方式中，需要用栈模拟出递归的效果，其中前序和中序相似，但是后序有点不同
+ *  */
 template <typename Value>
 void BStree<Value>::
 Recurse_PreorderTraverse(node<Value> *root){
