@@ -29,7 +29,6 @@ int CMysqlCallback::encode(easy_request_t* r, void* packet) {
     }
     else
     {
-      CMysqlSPRPacket *spr=reinterpret_cast<CMysqlSPRPacket *>(packet);
       easy_buf_t* buf = reinterpret_cast<easy_buf_t*>(packet);
       easy_request_addbuf(r, buf);
       cout<<"加入了缓冲区队列！"<<endl;
@@ -148,6 +147,7 @@ int CMysqlCallback::process(easy_request_t* r) {
 		r->ms->c->pool->ref++;
 		easy_atomic_inc(&r->ms->pool->ref);
 		ret=-11;
+		debug_++;
 	}
 	else{
 		char *buffer=(char *)malloc(2*1024*1024);
@@ -161,7 +161,10 @@ int CMysqlCallback::process(easy_request_t* r) {
 		ret=-11;
 		debug_++;
 	}
-    return ret;
+	if(debug_<=2)
+		return ret;
+	else
+		getchar();
 }
 
 uint64_t CMysqlCallback::get_packet_id(easy_connection_t* c, void* packet) {
