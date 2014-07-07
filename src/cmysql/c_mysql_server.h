@@ -60,8 +60,8 @@ public:
 	void send_result_set(easy_request_t *req,int type,uint16_t server_status, uint16_t charset);
 
 	void process_res_header_packet(easy_buf_t *&buff, int64_t &buff_pos, easy_request_t *req);
-	void process_field_packet();
-	void process_eof_packet();
+	void process_field_packet(easy_buf_t *&, int64_t &, easy_request_t *, bool, uint16_t);
+	void process_eof_packet(easy_buf_t *&, int64_t &, easy_request_t *, uint16_t);
 	void process_row_packet();
 
 	int process_single_packet(easy_buf_t *&buff, int64_t &buff_pos, easy_request_t *req, CMysqlSQLPacket *packet);
