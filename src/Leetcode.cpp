@@ -18,7 +18,12 @@ int main(){
 //************bstree test************
 	cout<<endl<<"*****bstree test*****"<<endl<<endl;
 	BStree<int> * bst=new BStree<int>();
-	bst->Insert(1);
+	bst->Insert(bst->getRoot(),2);
+	bst->Insert(bst->getRoot(),4);
+	bst->Insert(bst->getRoot(),5);
+	bst->Insert(bst->getRoot(),5);
+	bst->Insert(bst->getRoot(),1);
+	bst->Insert(bst->getRoot(),3);
 	bst->Display(bst->getRoot());
 
 

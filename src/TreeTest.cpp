@@ -8,9 +8,9 @@
 using namespace std;
 
 int main(){
-	BStree<int> * bst=new BStree<int>();
-	bst->Insert(1);
-	bst->Delete(2);
+//	BStree<int> * bst=new BStree<int>();
+//	bst->Insert(1);
+//	bst->Delete(2);
 
 
 	cout<<"---------------bound------------"<<endl;

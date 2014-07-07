@@ -35,6 +35,22 @@ public:
 public:
 	BStree():root(0){
 		cout<<"用特定的数据类型构造了空树！"<<endl;
+		/* for test */
+//		node<Value> *l1=(node<Value> *)malloc(sizeof(node<Value>));
+//		l1->left=0;
+//		l1->right=0;
+//		l1->value=1;
+//
+//		node<Value> *r1=(node<Value> *)malloc(sizeof(node<Value>));
+//		r1->left=0;
+//		r1->right=0;
+//		r1->value=4;
+//
+//		root=(node<Value> *)malloc(sizeof(node<Value>));
+//		root->value=3;
+//		root->left=l1;
+//		root->right=r1;
+
 	};
 
 	virtual ~BStree(){};
@@ -44,9 +60,9 @@ public:
 		return root;
 	};
 
-	bool Insert(Value value);
+	bool Insert(node<Value> *p, Value value);
 	bool Delete(Value value);
-	bool Search(node<Value> *treenode,Value value);
+	bool Search(node<Value> *treenode,Value value,node<Value> *pa,node<Value> *&rt);
 
 	int Display(node<Value> *root);
 
@@ -71,15 +87,38 @@ private:
 //C++编译器不支持对模板的分离式编译，将成员函数的实现放在.h文件中
 template <typename Value>
 bool BStree<Value>::
-Insert(Value value){
-//	Insert(node<Value> *treenode, Value value){
-//	if(!Search(treenode,value)){
-//
-//	}
-//	else{
-//		return false;
-//	}
-	cout<<"待完善的接口！"<<endl;
+Insert(node<Value> * p, Value value){
+	node<Value> *n;
+	if(!Search(p,value,0,n)){
+		if(n==0){
+			cout<<"给root节点存值！"<<endl;
+			root=(node<Value> *)malloc(sizeof(node<Value>));
+			root->value=value;
+			root->left=0;
+			root->right=0;
+		}
+		else{
+			cout<<"I can't find the value"<<endl<<"now the node value is: "<<n->value<<endl;
+			if(value<n->value){
+				/* 加入到n的左孩子 */
+				node<Value> *l=(node<Value> *)malloc(sizeof(node<Value>));
+				l->value=value;
+				l->left=0;
+				l->right=0;
+				n->left=l;
+			}
+			else{
+				node<Value> *r=(node<Value> *)malloc(sizeof(node<Value>));
+				r->value=value;
+				r->left=0;
+				r->right=0;
+				n->right=r;
+			}
+		}
+	}
+	else{
+		cout<<"the tree already has the value "<<value<<endl;
+	}
 	return true;
 }
 
@@ -89,20 +128,30 @@ Delete(Value value){
 	return true;
 }
 
+/* 插入和删除都是先查找 */
 template <typename Value>
 bool BStree<Value>::
-Search(node<Value> *treenode,Value value){
+Search(node<Value> *treenode, Value value, node<Value> *pa, node<Value> *&rt){
 	cout<<"search the tree!"<<endl;
-	if(treenode->left==0&&treenode->right==0){
+	/* 如果树的节点为空，返回false */
+	if(treenode==0){
+		rt=pa;
+//		cout<<"parent is: "<<rt->value<<endl;
 		return false;
-	}else{
-		if(treenode->value==value)
-			return true;
+	}
+	/* 如果等于树的根节点，返回成功 */
+	else if(treenode->value==value){
+		cout<<"find the tree node value!"<<endl;
+		return true;
+	}
+	else{
+		if(value<treenode->value){
+			cout<<value<<"<"<<treenode->value<<endl;
+			Search(treenode->left,value,treenode,rt);
+		}
 		else{
-			if(treenode->value<value)
-				Search(treenode->right,value);
-			else
-				Search(treenode->left,value);
+			cout<<value<<">"<<treenode->value<<endl;
+			Search(treenode->right,value,treenode,rt);
 		}
 	}
 }

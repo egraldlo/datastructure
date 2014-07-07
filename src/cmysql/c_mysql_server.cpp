@@ -175,9 +175,13 @@ void CMysqlServer::process_row_packet(){
 int CMysqlServer::process_single_packet(easy_buf_t *&buff, int64_t &buff_pos, easy_request_t *req, CMysqlSQLPacket *packet){
 	int ret=C_SUCCESS;
 	easy_addr_t addr=get_easy_addr(req);
-	/* 对packet加头 */
-	packet->encode();
 
+//	char *buffer=(char *)malloc(2*1024*1024);
+//	ObDataBuffer out_buffer(buffer,2*1024*1024);
+	/* 对packet加头 */
+//	ret=packet->encode(out_buffer.get_data(),out_buffer.get_capacity(),out_buffer.get_position());
+
+	ret = packet->encode(buff->pos,buff->end-buff->pos,buff_pos);
 	buff->last=buff->pos+buff_pos;
 	req->opacket=reinterpret_cast<void *>(buff);
 	cout<<"=======before is ok!=======in process_single_packet"<<endl;

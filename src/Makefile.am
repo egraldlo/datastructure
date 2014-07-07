@@ -1,7 +1,7 @@
 #现在写的动态链接库是两个地方都需要写include的文件，这里要想办法将系统中的hadoop_home指定
 AM_CPPFLAGS= -fPIC\
 -I/usr/include/easy \
--I/home/NewHadoop/hadoop/hadoop-1.0.3/src/c++/libhdfs\
+-I${HADOOP_HOME}/src/c++/libhdfs\
 -I/home/NewHadoop/java/jdk1.7.0_45/include\
 -I/home/NewHadoop/java/jdk1.7.0_45/include/linux
 
