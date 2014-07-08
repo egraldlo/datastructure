@@ -61,8 +61,10 @@ public:
 	};
 
 	bool Insert(node<Value> *p, Value value);
-	bool Delete(Value value);
+	bool Delete(node<Value> *p, Value value);
 	bool Search(node<Value> *treenode,Value value,node<Value> *pa,node<Value> *&rt);
+
+	void DeleteNode(node<Value> *p);
 
 	int Display(node<Value> *root);
 
@@ -124,11 +126,36 @@ Insert(node<Value> * p, Value value){
 
 template <typename Value>
 bool BStree<Value>::
-Delete(Value value){
+Delete(node<Value> *p, Value value){
+	if(p==0){
+		cout<<"[WARNING]: "<<value<<" is not existed in tree!"<<endl;
+		return false;
+	}
+	else{
+		if(value==p->value){
+			DeleteNode(p);
+		}
+		else if(value<p->value){
+			Delete(p->left,value);
+		}
+		else{
+			Delete(p->right,value);
+		}
+	}
 	return true;
 }
 
-/* 插入和删除都是先查找 */
+template <typename Value>
+void BStree<Value>::
+DeleteNode(node<Value> *p){
+	cout<<"删除节点！"<<endl;
+	if(p->left==0&&p->right==0){
+		free(p);
+		p=0;
+	}
+}
+
+/* 插入先查找 */
 template <typename Value>
 bool BStree<Value>::
 Search(node<Value> *treenode, Value value, node<Value> *pa, node<Value> *&rt){

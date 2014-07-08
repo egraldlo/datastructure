@@ -26,6 +26,9 @@ int main(){
 	bst->Insert(bst->getRoot(),3);
 	bst->Display(bst->getRoot());
 
+	bst->Delete(bst->getRoot(),3);
+	bst->Delete(bst->getRoot(),5);
+	bst->Display(bst->getRoot());
 
 
 //***********************************
