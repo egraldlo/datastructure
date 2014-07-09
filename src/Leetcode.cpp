@@ -26,8 +26,9 @@ int main(){
 	bst->Insert(bst->getRoot(),3);
 	bst->Display(bst->getRoot());
 
-	bst->Delete(bst->getRoot(),3);
-	bst->Delete(bst->getRoot(),5);
+	BStree<int>::node<int> *n=bst->getRoot();
+	bst->Delete(n,2);
+//	bst->Delete(n,4);
 	bst->Display(bst->getRoot());
 
 

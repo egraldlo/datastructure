@@ -61,10 +61,10 @@ public:
 	};
 
 	bool Insert(node<Value> *p, Value value);
-	bool Delete(node<Value> *p, Value value);
+	bool Delete(node<Value> *&p, Value value);
 	bool Search(node<Value> *treenode,Value value,node<Value> *pa,node<Value> *&rt);
 
-	void DeleteNode(node<Value> *p);
+	bool DeleteNode(node<Value> *&p);
 
 	int Display(node<Value> *root);
 
@@ -126,7 +126,7 @@ Insert(node<Value> * p, Value value){
 
 template <typename Value>
 bool BStree<Value>::
-Delete(node<Value> *p, Value value){
+Delete(node<Value> *&p, Value value){
 	if(p==0){
 		cout<<"[WARNING]: "<<value<<" is not existed in tree!"<<endl;
 		return false;
@@ -146,12 +146,63 @@ Delete(node<Value> *p, Value value){
 }
 
 template <typename Value>
-void BStree<Value>::
-DeleteNode(node<Value> *p){
+bool BStree<Value>::
+DeleteNode(node<Value> *&p){
 	cout<<"删除节点！"<<endl;
 	if(p->left==0&&p->right==0){
+		/* something ugly here, and we can have another way
+		 * when a pointer is been freed, can it be
+		 * valued once again?
+		 * */
 		free(p);
 		p=0;
+		return true;
+	}
+	else if(p->left==0&&p->right!=0){
+		node<Value> *q;
+		q=p->right;
+		p->value=q->value;
+		p->left=q->left;
+		p->right=q->right;
+		free(q);
+		q=0;
+		return true;
+	}
+	else if(p->left!=0&&p->right==0){
+		node<Value> *q;
+		q=p->left;
+		cout<<"p->left->value: "<<p->left->value<<endl;
+		p->value=q->value;
+		p->left=q->left;
+		p->right=q->right;
+		free(q);
+		q=0;
+		return true;
+	}
+	else{
+		/* we just need to use largest node of left
+		 * to value p
+		 * */
+		node<Value> *q=p->left;
+		node<Value> *par=0;
+		node<Value> *ptr=p->left;
+		while(ptr!=0){
+			par=ptr;
+			ptr=ptr->right;
+		}
+		if(q==par){
+			p->value=par->value;
+			p->left=0;
+			free(q);
+			q=0;
+			return true;
+		}
+		else{
+			p->value=par->value;
+			free(par);
+			par=0;
+			return true;
+		}
 	}
 }
 
