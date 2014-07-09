@@ -42,7 +42,7 @@ cserver_LDADD = /usr/lib64/libeasy.a \
 				/usr/lib64/libeasy.so \
 				cmysql/libcmysql.a 				
 
-lcode_LDADD = leetcode/libleetcode.a leetcode/Tree/libTree.a common/libcommon.a 
+lcode_LDADD = leetcode/libleetcode.a leetcode/Tree/libTree.a common/libcommon.a sort/libsort.a
 		 
 SUBDIRS = tree sec sync sort external a b cmysql leetcode common
 DIST_SUBDIRS = tree sec sync sort external a b cmysql leetcode common

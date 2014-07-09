@@ -16,7 +16,7 @@ int main(){
 	cout<<"---------------bound------------"<<endl;
 
 	SortAlgorithms *sort=new SortAlgorithms();
-	sort->init();
+//	sort->init();
 
 	ClaimsHDFS *ch=new ClaimsHDFS();
 	ch->claimsRead();

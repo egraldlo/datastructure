@@ -2,6 +2,7 @@
 #include "common/data_type.h"
 
 #include <tree/BStree.h>
+#include <sort/SortAlgorithms.h>
 
 #include <iostream>
 using namespace std;
@@ -28,9 +29,14 @@ int main(){
 
 	BStree<int>::node<int> *n=bst->getRoot();
 	bst->Delete(n,2);
-//	bst->Delete(n,4);
+	bst->Delete(n,4);
 	bst->Display(bst->getRoot());
 
+//*************sort test*************
+	cout<<endl<<"*****sort test*****"<<endl<<endl;
+	SortAlgorithms *sort=new SortAlgorithms();
+	sort->quickSort(waitingforSort,0,19);
+	sort->prt();
 
 //***********************************
 	return 0;
