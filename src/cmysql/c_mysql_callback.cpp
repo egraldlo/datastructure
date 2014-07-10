@@ -67,6 +67,7 @@ void* CMysqlCallback::decode(easy_message_t* m) {
       buffer = reinterpret_cast<char*>(easy_pool_alloc(m->pool,static_cast<uint32_t>(sizeof(CMysqlCommandPacket) + pkt_len)));
       packet = new(buffer)CMysqlCommandPacket();
       packet->set_header(pkt_len, pkt_seq);
+      cout<<"pkt_seq: "<<pkt_seq<<endl;
       packet->set_type(pkt_type);
       packet->set_receive_ts(0);
       memcpy(buffer + sizeof(CMysqlCommandPacket), m->input->pos, pkt_len - 1);

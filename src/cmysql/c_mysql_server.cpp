@@ -146,7 +146,7 @@ void CMysqlServer::send_result_set(easy_request_t *req,int type,uint16_t server_
 	cout<<">>>>>>>>>>>>>>send eof packet"<<endl;
 	process_eof_packet(buf, buffer_pos, req, server_status);
 //	process_row_packet(buf, buffer_pos, req, result, type);
-	process_eof_packet(buf, buffer_pos, req, server_status);
+//	process_eof_packet(buf, buffer_pos, req, server_status);
 }
 
 void CMysqlServer::process_eof_packet(easy_buf_t *&buff, int64_t &buff_pos, easy_request_t *req, uint16_t server_status){

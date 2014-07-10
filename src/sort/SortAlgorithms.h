@@ -23,6 +23,10 @@ public:
 	virtual ~SortAlgorithms();
 
 	void quickSort(int data[], int start, int end);
+	int selectPivot(int start, int end);
+	void swap(int&,int&);
+	int partition(int data[], int start, int end);
+
 	void mergeSort();
 	void radixSort();
 

@@ -8,10 +8,17 @@
 #ifndef B_H_
 #define B_H_
 
-class B {
+#include "../a/A.h"
+#include <iostream>
+using namespace std;
+
+class B:public A {
 public:
-	B();
-	virtual ~B();
+	B():A(){};
+	virtual ~B(){};
+	void tes(){
+		cout<<"hello In B class!"<<endl;
+	}
 };
 
 #endif /* B_H_ */
