@@ -64,8 +64,43 @@ int SortAlgorithms::partition(int data[], int start, int end){
 }
 
 /* 归并排序的空闲消耗比较大 */
-void SortAlgorithms::mergeSort(){
+void SortAlgorithms::mergeSort(int array[], int tempArray[], int left, int right){
+	int middle=(left+right)/2;
+	mergeSort(array,tempArray,left,middle);
+	mergeSort(array,tempArray,middle,right);
+	merge(array,tempArray,left,right,middle);
+}
 
+void SortAlgorithms::merge(int array[], int tempArray[], int left, int right, int middle){
+	for(int i=left;i<right;i++){
+		tempArray[i]=array[i];
+	}
+
+	int k=left;
+	int i=left;
+	int j=middle+1;
+	while((i<=middle)&&(j<=right)){
+		if(tempArray[i]>tempArray[j]){
+			array[k]=tempArray[j];
+			j++;
+			k++;
+		}
+		else{
+			array[k]=tempArray[i];
+			i++;
+			k++;
+		}
+	}
+	while(i<=middle){
+		array[k]=tempArray[i];
+		i++;
+		k++;
+	}
+	while(j<=right){
+		array[k]=tempArray[j];
+		j++;
+		k++;
+	}
 }
 
 void SortAlgorithms::radixSort(){

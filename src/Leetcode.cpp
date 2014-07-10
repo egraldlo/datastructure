@@ -35,8 +35,13 @@ int main(){
 //*************sort test*************
 	cout<<endl<<"*****sort test*****"<<endl<<endl;
 	SortAlgorithms *sort=new SortAlgorithms();
-	sort->quickSort(waitingforSort,0,19);
+//	sort->quickSort(waitingforSort,0,19);
+
+	int *tempArray=(int *)malloc(sizeof(int)*20);
+	sort->mergeSort(waitingforSort,tempArray,0,19);
 	sort->prt();
+
+
 
 //***********************************
 	return 0;

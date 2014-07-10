@@ -27,7 +27,9 @@ public:
 	void swap(int&,int&);
 	int partition(int data[], int start, int end);
 
-	void mergeSort();
+	void mergeSort(int array[], int tempArray[], int left, int right);
+	void merge(int array[], int tempArray[], int left, int right, int middle);
+
 	void radixSort();
 
 	void prt();
