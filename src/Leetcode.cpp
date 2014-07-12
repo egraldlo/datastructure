@@ -4,6 +4,8 @@
 #include <tree/BStree.h>
 #include <sort/SortAlgorithms.h>
 
+#include <leetcode/PostExpressionEval.h>
+
 #include <iostream>
 using namespace std;
 
@@ -33,14 +35,26 @@ int main(){
 	bst->Display(bst->getRoot());
 
 //*************sort test*************
-	cout<<endl<<"*****sort test*****"<<endl<<endl;
-	SortAlgorithms *sort=new SortAlgorithms();
-//	sort->quickSort(waitingforSort,0,19);
+//	cout<<endl<<"*****sort test*****"<<endl<<endl;
+//	SortAlgorithms *sort=new SortAlgorithms();
+////	sort->quickSort(waitingforSort,0,19);
+//
+//	int *tempArray=(int *)malloc(sizeof(int)*20);
+//	sort->mergeSort(waitingforSort,tempArray,0,19);
+//	sort->prt();
 
-	int *tempArray=(int *)malloc(sizeof(int)*20);
-	sort->mergeSort(waitingforSort,tempArray,0,19);
-	sort->prt();
-
+//*************post expression test*************
+	cout<<endl<<"*****post expression test*****"<<endl<<endl;
+	PostExpressionEval *postExpression=new PostExpressionEval();
+	vector<string> expression;
+	expression.push_back("4");
+	expression.push_back("-2");
+	expression.push_back("/");
+	expression.push_back("2");
+	expression.push_back("-3");
+	expression.push_back("-");
+	expression.push_back("-");
+	cout<<"the result is: "<<postExpression->evalRPN(expression)<<endl;
 
 
 //***********************************

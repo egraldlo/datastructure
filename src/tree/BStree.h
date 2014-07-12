@@ -76,6 +76,8 @@ public:
 	void Iterate_PostorderTraverse(node<Value> *root);
 	void Iterate_InorderTraverse(node<Value> *root);
 
+	bool SumRootLeafNodes(node<Value> *, Value);
+
 private:
 	node<Value> * root;
 };
@@ -288,6 +290,30 @@ template <typename Value>
 void BStree<Value>::
 Iterate_PostorderTraverse(node<Value> *root){
 
+}
+
+/*
+ * leetcode-129: sum root to leaf nodes.
+ * */
+template <typename Value>
+bool BStree<Value>::
+SumRootLeafNodes(node<Value> *root, Value sum){
+	Value total_sum;
+	/*
+	 * 如果树是空的，返回
+	 * */
+	if(root==0){
+		return false;
+	}
+	else{
+		if(root->left!=0){
+			total_sum=sum*10+root->left->value;
+			SumRootLeafNodes(root->left,total_sum);
+		}
+		if(root->right!=0){
+			SumRootLeafNodes(root->right,total_sum);
+		}
+	}
 }
 
 #endif /* BSTREE_H_ */
