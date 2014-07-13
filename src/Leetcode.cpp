@@ -5,6 +5,7 @@
 #include <sort/SortAlgorithms.h>
 
 #include <leetcode/PostExpressionEval.h>
+#include <leetcode/List.h>
 
 #include <iostream>
 using namespace std;
@@ -60,6 +61,13 @@ int main(){
 		expression.push_back("/");
 	cout<<"the result is: "<<postExpression->evalRPN(expression)<<endl;
 
+	//*************list test*************
+	cout<<endl<<"*****list test*****"<<endl<<endl;
+	List *l=new List();
+	l->init();
+	ListNode *ll=l->getRoot();
+	l->sortList(ll);
+	l->print(ll);
 
 //***********************************
 	return 0;
