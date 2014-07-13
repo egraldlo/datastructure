@@ -47,13 +47,17 @@ int main(){
 	cout<<endl<<"*****post expression test*****"<<endl<<endl;
 	PostExpressionEval *postExpression=new PostExpressionEval();
 	vector<string> expression;
-	expression.push_back("4");
-	expression.push_back("-2");
-	expression.push_back("/");
-	expression.push_back("2");
-	expression.push_back("-3");
-	expression.push_back("-");
-	expression.push_back("-");
+//	expression.push_back("4");
+//	expression.push_back("-2");
+//	expression.push_back("/");
+//	expression.push_back("2");
+//	expression.push_back("-3");
+//	expression.push_back("-");
+//	expression.push_back("-");
+
+		expression.push_back("0");
+		expression.push_back("3");
+		expression.push_back("/");
 	cout<<"the result is: "<<postExpression->evalRPN(expression)<<endl;
 
 
