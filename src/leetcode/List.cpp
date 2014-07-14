@@ -17,6 +17,7 @@ List::~List() {
 }
 
 void List::init(){
+	/* for test, there is 11 nodes */
 	head=(ListNode *)malloc(sizeof(ListNode));
 	head->val=9;
 	head->next=0;
@@ -27,71 +28,90 @@ void List::init(){
 		node->next=head->next;
 		head->next=node;
 	}
+
+	l1=(ListNode *)malloc(sizeof(ListNode));
+	l1->val=1;
+	l1->next=0;
+	for(int i=0;i<10;i++){
+		node=(ListNode *)malloc(sizeof(ListNode));
+		node->val=30-i*3;
+		node->next=l1->next;
+		l1->next=node;
+	}
+
+	l2=(ListNode *)malloc(sizeof(ListNode));
+	l2->val=1;
+	l2->next=0;
+	for(int i=0;i<10;i++){
+		node=(ListNode *)malloc(sizeof(ListNode));
+		node->val=20-i*1;
+		node->next=l2->next;
+		l2->next=node;
+	}
 }
 
 ListNode* List::getRoot(){
 	return head;
 }
 
-ListNode *List::sortList(ListNode *&head){
-	ListNode *tmp=(ListNode *)malloc(11*sizeof(ListNode));
-	sorter(head,tmp,0,10);
-}
-
-bool List::sorter(ListNode *list, ListNode *temp, int start, int end){
-	if(start==end)
-		return false;
-	int middle=(start+end)/2;
-	sorter(list,temp,start,middle);
-	sorter(list,temp,middle+1,end);
-	merge(list,temp,start,end,middle);
-}
-
-ListNode *List::Trans(ListNode *l, int node){
-	ListNode *rt=l;
-	int i=0;
-	while(i<node){
-		rt=rt->next;
-		i++;
+/*
+ * fast and slow pointer, it's great! divided into two parts.
+ * 2*n+1:
+ *   fast: n times reach 1+2*n
+ *   slow: n times reach 1+n(last node in first list)
+ * 2*n:
+ *   fast: n-1 times reach 2*n-1
+ *   slow: n-1 times reach n(last node in first list)
+ * */
+ListNode* List::findMiddle(ListNode *head){
+	ListNode *fast=head;
+	ListNode *slow=head;
+	while(fast->next!=0&&fast->next->next!=0){
+		fast=fast->next->next;
+		slow=slow->next;
 	}
-	return rt;
+	return slow;
 }
 
-void List::merge(ListNode *list, ListNode *temp, int start, int end, int middle){
-	temp=list;
-	print(list);
-	int k=start;
-	int i=start;
-	int j=middle+1;
-	while((i<=middle)&&(j<=end)){
-		if(Trans(temp,i)->val<=Trans(temp,j)->val){
-			cout<<Trans(temp,i)->val<<"<"<<Trans(temp,j)->val<<endl;
-			cout<<"choose one: "<<Trans(temp,i)->val<<endl;
-			Trans(list,k)->val=Trans(temp,i)->val;
-			k++;
-			i++;
+ListNode *List::mergeTwoList(ListNode *left, ListNode *right){
+	ListNode *ret=(ListNode *)malloc(sizeof(ListNode));
+	ret->val=-1;ret->next=0;
+	ListNode *r=ret;
+	while(left!=0&&right!=0){
+		if(left->val<right->val){
+			ret->next=left;
+			ret=left;
+			left=left->next;
 		}
 		else{
-			cout<<Trans(temp,i)->val<<">"<<Trans(temp,j)->val<<endl;
-			cout<<"choose one: "<<Trans(temp,j)->val<<endl;
-			Trans(list,k)->val=Trans(temp,j)->val;
-			k++;
-			j++;
+			ret->next=right;
+			ret=right;
+			right=right->next;
 		}
 	}
-	while(i<=middle){
-		Trans(list,k)->val=Trans(temp,i)->val;
-		cout<<"i++choose one: "<<Trans(temp,i)->val<<endl;
-		k++;
-		i++;
+	while(left!=0){
+		ret->next=left;
+		ret=left;
+		left=left->next;
 	}
-	while(j<=end){
-		Trans(list,k)->val=Trans(temp,j)->val;
-		cout<<"j++choose one: "<<Trans(temp,j)->val<<endl;
-		k++;
-		j++;
+	while(right!=0){
+		ret->next=right;
+		ret=right;
+		right=right->next;
 	}
-	cout<<"****finish****"<<endl;
+	return r->next;
+}
+
+ListNode *List::sortList(ListNode *head){
+	if(head==0||head->next==0)
+		return head;
+	ListNode *first=head;
+	ListNode *middle=findMiddle(head);
+	ListNode *second=middle->next;
+	middle->next=0;
+	ListNode *li1=sortList(first);
+	ListNode *li2=sortList(second);
+	return mergeTwoList(li1,li2);
 }
 
 void List::print(ListNode *h){

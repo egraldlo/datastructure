@@ -23,15 +23,18 @@ public:
 	List();
 	virtual ~List();
 
-	ListNode *sortList(ListNode *&head);
-	ListNode *Trans(ListNode *l, int node);
-	bool sorter(ListNode *list, ListNode *temp, int start, int end);
-	void merge(ListNode *list, ListNode *temp, int start, int end, int middle);
-
+	ListNode *sortList(ListNode *head);
+	ListNode *findMiddle(ListNode *head);
+	ListNode *mergeTwoList(ListNode *left, ListNode *right);
 
 	void init();
 	ListNode *getRoot();
 	void print(ListNode *);
+
+public:
+	ListNode *l1;
+	ListNode *l2;
+
 private:
 	ListNode *head;
 };

@@ -66,8 +66,14 @@ int main(){
 	List *l=new List();
 	l->init();
 	ListNode *ll=l->getRoot();
-	l->sortList(ll);
-	l->print(ll);
+	l->print(l->sortList(ll));
+
+	cout<<"find the middle node: "<<l->findMiddle(ll)->val<<endl;
+	l->print(l->mergeTwoList(l->l1,l->l2));
+
+//	l->sortList(ll);
+//	l->print(ll);
+
 
 //***********************************
 	return 0;
