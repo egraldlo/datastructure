@@ -114,6 +114,25 @@ ListNode *List::sortList(ListNode *head){
 	return mergeTwoList(li1,li2);
 }
 
+ListNode *List::reverseBetween(ListNode *head, int m, int n){
+	ListNode *rt=(ListNode *)malloc(sizeof(ListNode));
+	rt->val=-1;rt->next=0;
+	int i=1;
+	ListNode *p=head;
+	while(i<m){
+		p=p->next;
+		i++;
+	}
+
+
+	rt->next=p;
+	p->next=0;
+	while()
+
+
+	return rt->next;
+}
+
 void List::print(ListNode *h){
 	ListNode *node=h;
 	while(node!=0){

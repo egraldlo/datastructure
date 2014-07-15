@@ -31,6 +31,8 @@ public:
 	ListNode *getRoot();
 	void print(ListNode *);
 
+	ListNode *reverseBetween(ListNode *head, int m, int n);
+
 public:
 	ListNode *l1;
 	ListNode *l2;

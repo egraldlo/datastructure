@@ -4,7 +4,8 @@ AM_LDFLAGS=-lc -lm -lrt
 noinst_LIBRARIES=libleetcode.a
 libleetcode_a_SOURCES = Lee.cpp Lee.h \
 						PostExpressionEval.cpp	PostExpressionEval.h \
-						List.cpp	List.h
+						List.cpp	List.h \
+						Dp.cpp		Dp.h
 
 libleetcode_a_LIBADD = Tree/libTree.a
 
