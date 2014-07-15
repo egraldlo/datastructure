@@ -40,7 +40,7 @@ int main(){
 	SortAlgorithms *sort=new SortAlgorithms();
 	int *tempArray=(int *)malloc(sizeof(int)*20);
 	sort->mergeSort(waitingforSort,tempArray,0,19);
-	sort->prt();
+	sort->prt(waitingforSort);
 
 //*************post expression test*************
 	cout<<endl<<"*****post expression test*****"<<endl<<endl;

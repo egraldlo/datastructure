@@ -103,16 +103,16 @@ void SortAlgorithms::merge(int array[], int tempArray[], int left, int right, in
 		j++;
 		k++;
 	}
-	prt();
+	prt(array);
 }
 
 void SortAlgorithms::radixSort(){
 
 }
 
-void SortAlgorithms::prt(){
+void SortAlgorithms::prt(int *arr){
 	for(int i=0;i<20;i++){
-		cout<<" "<<waitingforSort[i];
+		cout<<" "<<arr[i];
 	}
 	cout<<endl;
 }

@@ -32,7 +32,7 @@ public:
 
 	void radixSort();
 
-	void prt();
+	void prt(int *arr);
 };
 
 #endif /* SORTALGORITHMS_H_ */
