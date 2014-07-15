@@ -127,7 +127,7 @@ ListNode *List::reverseBetween(ListNode *head, int m, int n){
 
 	rt->next=p;
 	p->next=0;
-	while()
+//	while()
 
 
 	return rt->next;

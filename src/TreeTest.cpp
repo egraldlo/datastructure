@@ -1,10 +1,13 @@
 #include "tree/BStree.h"
 #include "sort/SortAlgorithms.h"
-#include "external/ClaimsHDFS.h"
+//#include "external/ClaimsHDFS.h"
 #include "a/A1.h"
 #include "b/B.h"
 
+#include <string.h>
+
 #include <string>
+
 #include <iostream>
 using namespace std;
 
@@ -19,8 +22,8 @@ int main(){
 	SortAlgorithms *sort=new SortAlgorithms();
 //	sort->init();
 
-	ClaimsHDFS *ch=new ClaimsHDFS();
-	ch->claimsRead();
+//	ClaimsHDFS *ch=new ClaimsHDFS();
+//	ch->claimsRead();
 
 	A1 *a1=new A1();
 	a1->test();
