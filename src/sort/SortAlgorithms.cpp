@@ -31,11 +31,13 @@ void SortAlgorithms::swap(int &a, int &b) {
  * 快速排序算法不稳定
  * 非递归
  * */
-void SortAlgorithms::quickSort(int data[], int start, int end) {
+bool SortAlgorithms::quickSort(int data[], int start, int end) {
 	cout<<"in the quick sort!"<<endl;
 	/*
 	 * analysis on quick sort!
 	 * */
+	if(start==end)
+		return false;
 	int pivot=selectPivot(start,end);
 	swap(data[pivot],data[end]);
 	pivot=partition(data,start,end);

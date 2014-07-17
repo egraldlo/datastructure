@@ -119,16 +119,20 @@ ListNode *List::reverseBetween(ListNode *head, int m, int n){
 	rt->val=-1;rt->next=0;
 	int i=1;
 	ListNode *p=head;
+	ListNode *q=p;
 	while(i<m){
 		p=p->next;
+		q=q->next;
 		i++;
 	}
 
-
 	rt->next=p;
 	p->next=0;
-	while()
 
+	while(i<=n){
+
+		i++;
+	}
 
 	return rt->next;
 }
