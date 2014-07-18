@@ -55,6 +55,32 @@ int main(){
 	expression.push_back("-");
 	cout<<"the result is: "<<postExpression->evalRPN(expression)<<endl;
 
+//*************in expression test*************
+	cout<<endl<<"*****in expression test*****"<<endl<<endl;
+	InExpressionEval *inExpression=new InExpressionEval();
+	vector<string> expression1;
+//	expression1.push_back("6");
+//	expression1.push_back("*");
+//	expression1.push_back("(");
+//	expression1.push_back("5");
+//	expression1.push_back("*");
+//	expression1.push_back("(");
+//	expression1.push_back("3");
+//	expression1.push_back("+");
+//	expression1.push_back("2");
+//	expression1.push_back(")");
+//	expression1.push_back("+");
+//	expression1.push_back("4");
+//	expression1.push_back(")");
+
+	expression1.push_back("6");
+	expression1.push_back("+");
+	expression1.push_back("2");
+	expression1.push_back("*");
+	expression1.push_back("3");
+
+	cout<<"the result is: "<<inExpression->evalRPN(expression1)<<endl;
+
 //*************list test*************
 	cout<<endl<<"*****list test*****"<<endl<<endl;
 	List *l=new List();

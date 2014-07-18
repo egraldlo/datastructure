@@ -31,4 +31,19 @@ private:
 	stack<int> numericStack;
 };
 
+class InExpressionEval {
+public:
+	InExpressionEval();
+	virtual ~InExpressionEval();
+
+	bool isPriority(string, string);
+	int evalRPN(vector<string> );
+	bool isOperator(string);
+	int cal(int, int, string);
+
+private:
+	stack<string> operatorStack;
+	stack<int> numericStack;
+};
+
 #endif /* POSTEXPRESSIONEVAL_H_ */
