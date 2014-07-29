@@ -91,6 +91,15 @@ int main(){
 	cout<<"find the middle node: "<<l->findMiddle(ll)->val<<endl;
 	l->print(l->mergeTwoList(l->l1,l->l2));
 
+	l->reset();
+	l->init();
+
+	vector<ListNode *> heads;
+	heads.push_back(l->l1);
+	heads.push_back(l->l2);
+	heads.push_back(l->l3);
+	l->print(l->mergeLists(heads));
+
 //***********************************
 	return 0;
 }
