@@ -48,10 +48,24 @@ void List::init(){
 		node->next=l2->next;
 		l2->next=node;
 	}
+
+	l3=(ListNode *)malloc(sizeof(ListNode));
+	l3->val=1;
+	l3->next=0;
+	for(int i=0;i<5;i++){
+		node=(ListNode *)malloc(sizeof(ListNode));
+		node->val=30-i*3;
+		node->next=l3->next;
+		l3->next=node;
+	}
 }
 
 ListNode* List::getRoot(){
 	return head;
+}
+
+void List::reset(){
+	l1=0;	l2=0;	l3=0;
 }
 
 /*
@@ -100,6 +114,14 @@ ListNode *List::mergeTwoList(ListNode *left, ListNode *right){
 		right=right->next;
 	}
 	return r->next;
+}
+
+ListNode *List::mergeLists(vector<ListNode *> heads){
+	ListNode *p=heads[0];
+	for(int i=1;i<heads.size();i++){
+		p=mergeTwoList(p,heads[i]);
+	}
+	return p;
 }
 
 ListNode *List::sortList(ListNode *head){
