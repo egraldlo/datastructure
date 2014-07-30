@@ -1,0 +1,5 @@
+1, first you can compile the .l and .ypp file by using the command:
+   flex sql.l && bison sql.ypp
+   well now you can add the three files(lex.yy.cpp, sql.tab.cpp, sql.tab.hpp) into you project.
+   and you must add a file named sql_node_struct.h
+2, add -ll and -ly to compile options.

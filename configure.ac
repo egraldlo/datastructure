@@ -19,6 +19,7 @@ AC_CONFIG_FILES([
   src/sec/thir/Makefile
   src/sort/Makefile
   src/sync/Makefile
+  src/Sqlparser/Makefile
   src/external/Makefile
 ])
 AC_OUTPUT
