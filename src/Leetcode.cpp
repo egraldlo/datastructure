@@ -2,15 +2,32 @@
 #include "common/data_type.h"
 
 #include <tree/BStree.h>
+#include <io/IOtest.h>
 #include <sort/SortAlgorithms.h>
 
 #include <leetcode/PostExpressionEval.h>
 #include <leetcode/List.h>
+#include <leetcode/ArrayAlgos.h>
 
 #include <iostream>
 using namespace std;
 
+int io_main();
+int leet_main();
+
 int main(){
+	io_main();
+//	leet_main();
+	return 0;
+}
+
+int io_main(){
+	IOtest *io=new IOtest();
+	io->init();
+	return 0;
+}
+
+int leet_main(){
 	cout<<"LEETCODE学习！"<<endl;
 	Lee *lee=new Lee();
 	lee->start();
@@ -86,7 +103,7 @@ int main(){
 //	expression1.push_back("2");
 
 
-	cout<<"the result is: "<<inExpression->evalRPN(expression1)<<endl;
+//	cout<<"the result is: "<<inExpression->evalRPN(expression1)<<endl;
 
 //*************list test*************
 	cout<<endl<<"*****list test*****"<<endl<<endl;
@@ -106,6 +123,14 @@ int main(){
 	heads.push_back(l->l2);
 	heads.push_back(l->l3);
 	l->print(l->mergeLists(heads));
+
+//*************************************
+	ArrayAlgos *ag=new ArrayAlgos();
+	int A[2]={1};
+	int B[1]={2};
+	int m=1;
+	int n1=1;
+	ag->merge(A,m,B,n1);
 
 //***********************************
 	return 0;

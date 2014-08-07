@@ -5,7 +5,8 @@ noinst_LIBRARIES=libleetcode.a
 libleetcode_a_SOURCES = Lee.cpp Lee.h \
 						PostExpressionEval.cpp	PostExpressionEval.h \
 						List.cpp	List.h \
-						Dp.cpp		Dp.h
+						Dp.cpp		Dp.h \
+						ArrayAlgos.cpp ArrayAlgos.h
 
 libleetcode_a_LIBADD = Tree/libTree.a
 

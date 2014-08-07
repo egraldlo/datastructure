@@ -9,6 +9,7 @@ AC_CONFIG_FILES([
   Makefile
   src/Makefile
   src/tree/Makefile
+  src/io/Makefile
   src/cmysql/Makefile
   src/common/Makefile
   src/leetcode/Makefile
