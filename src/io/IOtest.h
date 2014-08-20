@@ -17,6 +17,7 @@ public:
 	virtual ~IOtest();
 
 	void init();
+	void nonblocking();
 
 private:
 

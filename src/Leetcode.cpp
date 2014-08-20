@@ -24,6 +24,7 @@ int main(){
 int io_main(){
 	IOtest *io=new IOtest();
 	io->init();
+	io->nonblocking();
 	return 0;
 }
 
