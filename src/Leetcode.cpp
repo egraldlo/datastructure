@@ -10,20 +10,37 @@
 #include <leetcode/ArrayAlgos.h>
 
 #include <iostream>
+#include <string.h>
 using namespace std;
+
+union data{
+	int a;
+	long b;
+	char c[4];
+};
 
 int io_main();
 int leet_main();
 
 int main(){
 	io_main();
-//	leet_main();
+	leet_main();
 	return 0;
 }
 
 int io_main(){
 	IOtest *io=new IOtest();
 	io->init();
+
+	union data test_union;
+	test_union.a=19;
+	cout<<test_union.a<<endl;
+	test_union.b=12;
+	cout<<test_union.a<<endl;
+	const char *str="abc";
+	memcpy(test_union.c,str,4);
+	cout<<test_union.a<<endl;
+
 	return 0;
 }
 
@@ -56,8 +73,19 @@ int leet_main(){
 	cout<<endl<<"*****sort test*****"<<endl<<endl;
 	SortAlgorithms *sort=new SortAlgorithms();
 	int *tempArray=(int *)malloc(sizeof(int)*20);
-	sort->mergeSort(waitingforSort,tempArray,0,19);
+//	sort->mergeSort(waitingforSort,tempArray,0,19);
+//	sort->bubleSort(waitingforSort,20);
+//	sort->selectSort(waitingforSort,20);
+	sort->insertSort(waitingforSort,20);
+
+
+
 	sort->prt(waitingforSort);
+
+
+
+
+
 
 //*************post expression test*************
 	cout<<endl<<"*****post expression test*****"<<endl<<endl;

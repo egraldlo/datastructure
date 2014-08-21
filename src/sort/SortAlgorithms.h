@@ -22,14 +22,22 @@ public:
 	SortAlgorithms();
 	virtual ~SortAlgorithms();
 
-	bool quickSort(int data[], int start, int end);
 	int selectPivot(int start, int end);
 	void swap(int&,int&);
 	int partition(int data[], int start, int end);
 
-	bool mergeSort(int array[], int tempArray[], int left, int right);
 	void merge(int array[], int tempArray[], int left, int right, int middle);
 
+
+
+	void bubleSort(int array[],int size);
+	void selectSort(int array[],int size);
+	void insertSort(int array[],int size);
+
+	bool quickSort(int data[], int start, int end);
+	bool mergeSort(int array[], int tempArray[], int left, int right);
+	void heapSort(){};
+//	void shellSort(){};
 	void radixSort();
 
 	void prt(int *arr);
