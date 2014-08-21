@@ -78,7 +78,8 @@ int leet_main(){
 //	sort->mergeSort(waitingforSort,tempArray,0,19);
 //	sort->bubleSort(waitingforSort,20);
 //	sort->selectSort(waitingforSort,20);
-	sort->insertSort(waitingforSort,20);
+//	sort->insertSort(waitingforSort,20);
+	sort->heapSort(waitingforSort,20);
 
 
 
