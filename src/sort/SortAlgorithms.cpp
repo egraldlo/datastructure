@@ -112,6 +112,75 @@ void SortAlgorithms::radixSort(){
 
 }
 
+void SortAlgorithms::bubleSort(int array[], int n){
+	cout<<"冒泡排序的时间复杂度是：n2  稳定 冒泡排序的思想是将较大的放在后面，第一遍遍历完了之后，最后一个元素最大"<<endl;
+	int temp=0;
+	bool flag=false;
+	for(unsigned j=0;j<n;j++){
+		flag=true;
+		//这里是n-j-1而不是n-j，因为array[i+1]可能会溢出
+		for(unsigned i=0;i<n-j-1;i++){
+			if(array[i]>array[i+1]){
+				temp=array[i];
+				array[i]=array[i+1];
+				array[i+1]=temp;
+				flag=false;//如果一次交换都没有，证明都是有序的，就不需要继续下去
+			}
+		}
+		if(flag)
+			break;
+	}
+}
+
+void SortAlgorithms::selectSort(int array[], int n){
+	cout<<"选择排序的时间复杂度是：n2  不稳定 选择排序的思想是选择一个最小的放在已排序的末尾"<<endl;
+//	int temp=0;
+//	int max=0;
+//	int t;
+//	for(unsigned i=0;i<n;i++){
+//		max=array[i];
+//		temp=i;
+//		for(unsigned j=i;j<n;j++)
+//			if(max<array[j]){
+//				max=array[j];
+//				temp=j;
+//			}
+//		t=array[temp];
+//		array[temp]=array[i];
+//		array[i]=t;
+//	}      //这里注释的是我的开始的写法，很挫，然后我的改进方法如下：
+	int max=0;
+	int i=0;
+	int j=0;
+	int temp=0;
+	for(i=0;i<n-1;i++){
+		max=i;
+		for(j=i+1;j<n;j++){
+			if(array[max]<array[j])
+				max=j;
+		}
+		temp=array[max];
+		array[max]=array[i];
+		array[i]=temp;
+	}
+}
+
+void SortAlgorithms::insertSort(int array[], int n){
+	cout<<"插入排序的时间复杂度是：n2  稳定 插入排序的思想是将后面的放在已排序中"<<endl;
+	int temp;
+	for(int i=1;i<n;i++){
+		temp=array[i];
+		//比较从0<=到<=i-1
+		int j=i-1;
+		while(j>=0){
+			if(temp<array[j])
+				array[j+1]=array[j];
+			j--;
+		}
+		array[j+1]=temp;
+	}
+}
+
 void SortAlgorithms::prt(int *arr){
 	for(int i=0;i<20;i++){
 		cout<<" "<<arr[i];
