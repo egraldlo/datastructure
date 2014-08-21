@@ -21,3 +21,7 @@ src/cppforwork
 src/lcode
 src/cserver
 src/treetest
+*.o
+config.log
+config.h.in~
+sqlparser
