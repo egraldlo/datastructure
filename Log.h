@@ -18,7 +18,7 @@ public:
 
 public:
 	void logging(){
-		cout<<"in the logging!!!"<<endl;
+		cout<<"in the logging!!! test"<<endl;
 	}
 };
 
