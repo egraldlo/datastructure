@@ -12,12 +12,14 @@
 #include <iostream>
 using namespace std;
 
+#include <string.h>
+
 int io_main();
 int leet_main();
 
 int main(){
 	io_main();
-//	leet_main();
+	leet_main();
 	return 0;
 }
 
@@ -131,6 +133,9 @@ int leet_main(){
 	int m=1;
 	int n1=1;
 	ag->merge(A,m,B,n1);
+
+	char *src="hello,world!";
+	cout<<"length: "<<strlen(src)<<endl;
 
 //***********************************
 	return 0;
