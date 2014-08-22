@@ -97,6 +97,8 @@ void CMysqlServer::on_ioth_start() {
   }
 }
 
+// 1 2 3 4 5
+// 2 3 4 5 6
 int CMysqlServer::login_handler(easy_connection_t * c) {
 	cout<<"登录处理"<<endl;
 	login_hander_->set_c_server(this);
