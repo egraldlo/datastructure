@@ -33,14 +33,15 @@ public:
 	void bubleSort(int array[],int size);
 	void selectSort(int array[],int size);
 	void insertSort(int array[],int size);
-
-	bool quickSort(int data[], int start, int end);
+	void heapSort(int array[], int size);
+	void quickSort(int data[], int start, int end);
 	bool mergeSort(int array[], int tempArray[], int left, int right);
-	void heapSort(){};
+
 //	void shellSort(){};
 	void radixSort();
 
 	void prt(int *arr);
 };
+
 
 #endif /* SORTALGORITHMS_H_ */

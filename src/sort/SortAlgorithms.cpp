@@ -6,6 +6,7 @@
  */
 
 #include "SortAlgorithms.h"
+#include "/usr/include/stdio.h"
 
 SortAlgorithms::SortAlgorithms() {
 
@@ -31,18 +32,60 @@ void SortAlgorithms::swap(int &a, int &b) {
  * 快速排序算法不稳定
  * 非递归
  * */
-bool SortAlgorithms::quickSort(int data[], int start, int end) {
-	cout<<"in the quick sort!"<<endl;
-	/*
-	 * analysis on quick sort!
-	 * */
-	if(start==end)
-		return false;
-	int pivot=selectPivot(start,end);
-	swap(data[pivot],data[end]);
-	pivot=partition(data,start,end);
-	quickSort(data,start,pivot-1);
-	quickSort(data,pivot+1,end);
+void SortAlgorithms::quickSort(int data[], int start, int end) {
+//	cout<<"in the quick sort!"<<endl;
+//	/*
+//	 * analysis on quick sort!
+//	 * */
+//	if(start==end)
+//		return false;
+//	int pivot=selectPivot(start,end);
+//	swap(data[pivot],data[end]);
+//	pivot=partition(data,start,end);
+//	quickSort(data,start,pivot-1);
+//	quickSort(data,pivot+1,end);
+
+//	int p=(start+end)/2;
+//	int pivot=data[p];
+//
+//	int i=start;
+//	int j=end;
+//	while(i<j) {
+//		while(!((i<p)||(pivot>=data[i])))
+//			++i;
+//		if(i<p){
+//			data[p]=data[i];
+//			p=i;
+//		}
+//
+//		while(!((j>p)||(pivot<=data[i])))
+//			--j;
+//		if(j>p) {
+//			data[p]=data[j];
+//			p=j;
+//		}
+//	}
+//
+//	data[p]=pivot;
+//
+//	if(p-start>1)
+//		quickSort(data,start,p-1);
+//	if(end-p>1)
+//		quickSort(data,p+1,end);
+
+	int last=start;
+	int pivot=data[start];
+	for(int i=start+1;i<=end;i++) {
+		if(data[i]<pivot){
+			last++;
+			swap(data[i],data[last]);
+		}
+	}
+	swap(data[start],data[last]);
+	if(last-start>1)
+		quickSort(data,start,last-1);
+	if(end-start>1)
+		quickSort(data,last+1,end);
 }
 
 int SortAlgorithms::partition(int data[], int start, int end){
@@ -132,6 +175,19 @@ void SortAlgorithms::bubleSort(int array[], int n){
 	}
 }
 
+//	int temp;
+//	for(int i=1;i<n;i++){
+//		temp=array[i];
+//		//比较从0<=到<=i-1
+//		int j=i-1;
+//		while(j>=0){
+//			if(temp<array[j])
+//				array[j+1]=array[j];
+//			j--;
+//		}
+//		array[j+1]=temp;
+//	}
+
 void SortAlgorithms::selectSort(int array[], int n){
 	cout<<"选择排序的时间复杂度是：n2  不稳定 选择排序的思想是选择一个最小的放在已排序的末尾"<<endl;
 //	int temp=0;
@@ -167,17 +223,65 @@ void SortAlgorithms::selectSort(int array[], int n){
 
 void SortAlgorithms::insertSort(int array[], int n){
 	cout<<"插入排序的时间复杂度是：n2  稳定 插入排序的思想是将后面的放在已排序中"<<endl;
-	int temp;
+	int curse=0;
+	int curse1;
+	printf("%p\n",&curse);
+	printf("%p\n",&curse1);
+	cout<<": "<<curse<<endl;
+	cout<<": "<<curse1<<endl;
+//	int i=0;
 	for(int i=1;i<n;i++){
-		temp=array[i];
-		//比较从0<=到<=i-1
-		int j=i-1;
-		while(j>=0){
-			if(temp<array[j])
-				array[j+1]=array[j];
-			j--;
+		curse=array[i];
+		//i-1----0
+		int temp=i-1;
+		while(temp>=0){
+			if(curse>array[temp]){
+				break;
+			}
+			temp--;
 		}
-		array[j+1]=temp;
+
+		//i->temp+1
+		int temp2=i;
+		while(temp2>temp+1){
+			array[temp2]=array[temp2-1];
+			temp2--;
+		}
+		//放在temp+1的位置上
+		array[temp+1]=curse;
+	}
+}
+
+void heaplify(int array[], int i, int len) {
+	int child=i*2+1;
+	while(child<len) {
+		if(child+1<len && array[child]<array[child+1])
+			child++;
+		if(array[i]>array[child])
+			break;
+		else {
+			int temp=array[i];
+			array[i]=array[child];
+			array[child]=temp;
+
+			i=child;
+			child=i*2+1;
+		}
+	}
+}
+
+void SortAlgorithms::heapSort(int array[], int n) {
+	//initialize the heap
+	for(int i=(n-2)/2;i>=0;i--) {
+		heaplify(array,i,n);
+	}
+
+	for(int i=0;i<n;i++) {
+		int temp=array[0];
+		array[0]=array[n-i-1];
+		array[n-i-1]=temp;
+
+		heaplify(array,0,n-i-1);
 	}
 }
 
