@@ -162,6 +162,14 @@ int leet_main(){
 	int n1=1;
 	ag->merge(A,m,B,n1);
 
+//*************************************
+	char *s1="string";
+	char *s2="s1";
+	if(lee->stringMatch(s1,s2))
+		cout<<"matching!"<<endl;
+	else
+		cout<<"no matching!"<<endl;
+
 //***********************************
 	return 0;
 }

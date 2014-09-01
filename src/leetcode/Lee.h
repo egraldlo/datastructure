@@ -18,6 +18,8 @@ public:
 	Lee();
 	virtual ~Lee();
 
+	bool stringMatch(char *str1, char *str2);
+
 public:
 	void start();
 };

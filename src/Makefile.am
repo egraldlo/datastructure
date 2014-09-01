@@ -38,7 +38,7 @@ sqlparser_SOURCES = Sql.cpp
 cppforwork_LDADD = sec/libsec.a sync/libsync.a tree/libtree.a sec/thir/libthir.a ../Log.o
 
 #如果有多层依赖的话，要在第一层的makefile中写上第三层.a的依赖，但是这个地方是可以优化的感觉。
-treetest_LDADD = sec/libsec.a tree/libtree.a sort/libsort.a external/libclaimshdfs.a a/liba.a b/libb.a
+treetest_LDADD = sec/libsec.a tree/libtree.a sort/libsort.a external/libclaimshdfs.a a/liba.a b/libb.a leetcode/libleetcode.a
 
 cserver_LDADD = /usr/lib64/libeasy.a \
 				/usr/lib64/libeasy.so \

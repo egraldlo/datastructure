@@ -6,5 +6,4 @@ noinst_LIBRARIES=libcommon.a
 libcommon_a_SOURCES = \
 	data_type.cpp data_type.h\
 	expression.cpp expression.h \
-	EightQ.cpp	EightQ.h \
-	SmartPtr.cpp	SmartPtr.h
+	EightQ.cpp	EightQ.h
