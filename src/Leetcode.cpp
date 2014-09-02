@@ -19,6 +19,8 @@ union data{
 	char c[4];
 };
 
+#include <string.h>
+
 int io_main();
 int leet_main();
 
@@ -31,6 +33,8 @@ int main(){
 int io_main(){
 	IOtest *io=new IOtest();
 	io->init();
+
+	io->nonblocking();
 
 	union data test_union;
 	test_union.a=19;
@@ -77,8 +81,7 @@ int leet_main(){
 //	sort->bubleSort(waitingforSort,20);
 //	sort->selectSort(waitingforSort,20);
 //	sort->insertSort(waitingforSort,20);
-//	sort->heapSort(waitingforSort,20);
-	sort->quickSort(waitingforSort,0,19);
+	sort->heapSort(waitingforSort,20);
 
 
 

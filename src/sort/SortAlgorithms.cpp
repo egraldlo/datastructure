@@ -285,6 +285,44 @@ void SortAlgorithms::heapSort(int array[], int n) {
 	}
 }
 
+
+//void sift(int d[], int ind, int len){
+//	int i = ind;
+//	int c = i * 2 + 1;
+//
+//	while(c < len)
+//	{
+//		if(c + 1 < len && d[c] < d[c + 1])
+//			c++;
+//		if(d[i] > d[c]) break;
+//		else
+//		{
+//			int t = d[c];
+//			d[c] = d[i];
+//			d[i] = t;
+//			i = c;
+//			c = 2 * i + 1;
+//		}
+//	}
+//
+//	return;
+//}
+//
+//void SortAlgorithms::heapSort(int array[], int n){
+//	for(int i = (n - 2) / 2; i >= 0; i--)
+//		sift(array, i, n);
+//
+//	for(int j = 0; j < n; j++)
+//	{
+//		int t = array[0];
+//		array[0] = array[n - j - 1];
+//		array[n - j - 1] = t;
+//
+//		sift(array, 0, n - j - 1);
+//
+//	}
+//}
+
 void SortAlgorithms::prt(int *arr){
 	for(int i=0;i<20;i++){
 		cout<<" "<<arr[i];

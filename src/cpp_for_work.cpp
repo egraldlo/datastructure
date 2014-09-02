@@ -35,7 +35,6 @@ using namespace std;
 
 #include <string>
 
-
 void test_avltree(){
 	AVLtree<int> *avl=new AVLtree<int>();
 	int i1=10;
