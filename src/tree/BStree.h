@@ -78,6 +78,9 @@ public:
 
 	bool SumRootLeafNodes(node<Value> *, Value);
 
+	int find(node<Value> *root, Value);
+	int deep(node<Value> *root, Value target);
+
 private:
 	node<Value> * root;
 };
@@ -314,6 +317,56 @@ SumRootLeafNodes(node<Value> *root, Value sum){
 			SumRootLeafNodes(root->right,total_sum);
 		}
 	}
+}
+
+template <typename Value>
+int BStree<Value>::
+find(node<Value> *root, Value target){
+//	cout<<deep(root,target)<<endl;
+	int i=deep(root,target);
+	return i;
+}
+
+template <typename Value>
+int BStree<Value>::
+deep(node<Value> *root,Value target){
+//	if(root==0) {
+//		return -1;
+//	}
+
+	if(root->value==target) {
+		return 0;
+	}
+
+	if(root->left!=0) {
+		int l=deep(root->left,target);
+		if(l!=-1)
+			return (1+l);
+	}
+
+	if(root->right!=0) {
+		int r=deep(root->right,target);
+		if(r!=-1)
+			return (1+r);
+	}
+	return -1;
+//
+//	if(root->value==target){
+//		return 1;
+//	}
+//
+////	else {
+//		if(root->left!=0) {
+//			return 1+deep(root->left,target);
+//		}
+//
+//		if(root->right!=0) {
+//			return 1+deep(root->right,target);
+//		}
+////	}
+//
+//	return 1;
+
 }
 
 #endif /* BSTREE_H_ */

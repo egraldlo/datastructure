@@ -30,15 +30,15 @@ public:
 
 
 
-	void bubleSort(int array[],int size);
-	void selectSort(int array[],int size);
-	void insertSort(int array[],int size);
-	void heapSort(int array[],int size);
+	void bubleSort(int array[],int size);//wending
+	void selectSort(int array[],int size);//bu
+	void insertSort(int array[],int size);//wen
+	void heapSort(int array[],int size);//buwen
 
-	void quickSort(int data[], int start, int end);
-	bool mergeSort(int array[], int tempArray[], int left, int right);
+	void quickSort(int data[], int start, int end);//buwen
+	bool mergeSort(int array[], int tempArray[], int left, int right);//wen
 //	void shellSort(){};
-	void radixSort();
+	void radixSort();//wen
 
 	void prt(int *arr);
 };

@@ -33,46 +33,6 @@ void SortAlgorithms::swap(int &a, int &b) {
  * 非递归
  * */
 void SortAlgorithms::quickSort(int data[], int start, int end) {
-//	cout<<"in the quick sort!"<<endl;
-//	/*
-//	 * analysis on quick sort!
-//	 * */
-//	if(start==end)
-//		return false;
-//	int pivot=selectPivot(start,end);
-//	swap(data[pivot],data[end]);
-//	pivot=partition(data,start,end);
-//	quickSort(data,start,pivot-1);
-//	quickSort(data,pivot+1,end);
-
-//	int p=(start+end)/2;
-//	int pivot=data[p];
-//
-//	int i=start;
-//	int j=end;
-//	while(i<j) {
-//		while(!((i<p)||(pivot>=data[i])))
-//			++i;
-//		if(i<p){
-//			data[p]=data[i];
-//			p=i;
-//		}
-//
-//		while(!((j>p)||(pivot<=data[i])))
-//			--j;
-//		if(j>p) {
-//			data[p]=data[j];
-//			p=j;
-//		}
-//	}
-//
-//	data[p]=pivot;
-//
-//	if(p-start>1)
-//		quickSort(data,start,p-1);
-//	if(end-p>1)
-//		quickSort(data,p+1,end);
-
 	int last=start;
 	int pivot=data[start];
 	for(int i=start+1;i<=end;i++) {

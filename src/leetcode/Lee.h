@@ -19,6 +19,10 @@ public:
 	virtual ~Lee();
 
 	bool stringMatch(char *str1, char *str2);
+	int fork_test();
+	int fork_test2();
+	int fork_test3();
+	int pipe_test();
 
 public:
 	void start();
