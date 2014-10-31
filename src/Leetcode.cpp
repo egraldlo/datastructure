@@ -8,6 +8,7 @@
 #include <leetcode/PostExpressionEval.h>
 #include <leetcode/List.h>
 #include <leetcode/ArrayAlgos.h>
+#include "leetcode/Zui.h"
 
 #include <iostream>
 #include <string.h>
@@ -50,7 +51,11 @@ int io_main(){
 
 int leet_main(){
 	cout<<"LEETCODE学习！"<<endl;
-	Lee *lee=new Lee();
+
+	Zui *z=new Zui();
+	z->test();
+
+//	Lee *lee=new Lee();
 //	lee->start();
 //
 //	cout<<endl<<"数据类型练习！"<<endl;
@@ -58,20 +63,20 @@ int leet_main(){
 //	dt->test();
 //
 ////************bstree test************
-	cout<<endl<<"*****bstree test*****"<<endl<<endl;
-	BStree<int> * bst=new BStree<int>();
-	bst->Insert(bst->getRoot(),2);
-	bst->Insert(bst->getRoot(),4);
+//	cout<<endl<<"*****bstree test*****"<<endl<<endl;
+//	BStree<int> * bst=new BStree<int>();
+//	bst->Insert(bst->getRoot(),2);
+//	bst->Insert(bst->getRoot(),4);
+////	bst->Insert(bst->getRoot(),5);
 //	bst->Insert(bst->getRoot(),5);
-	bst->Insert(bst->getRoot(),5);
-	bst->Insert(bst->getRoot(),1);
-	bst->Insert(bst->getRoot(),3);
-//	bst->Display(bst->getRoot());
-	cout<<"specific deep 2: "<<bst->find(bst->getRoot(),2)<<endl;
-	cout<<"specific deep 4: "<<bst->find(bst->getRoot(),4)<<endl;
-	cout<<"specific deep 5: "<<bst->find(bst->getRoot(),5)<<endl;
-	cout<<"specific deep 1: "<<bst->find(bst->getRoot(),1)<<endl;
-	cout<<"specific deep 3: "<<bst->find(bst->getRoot(),3)<<endl;
+//	bst->Insert(bst->getRoot(),1);
+//	bst->Insert(bst->getRoot(),3);
+////	bst->Display(bst->getRoot());
+//	cout<<"specific deep 2: "<<bst->find(bst->getRoot(),2)<<endl;
+//	cout<<"specific deep 4: "<<bst->find(bst->getRoot(),4)<<endl;
+//	cout<<"specific deep 5: "<<bst->find(bst->getRoot(),5)<<endl;
+//	cout<<"specific deep 1: "<<bst->find(bst->getRoot(),1)<<endl;
+//	cout<<"specific deep 3: "<<bst->find(bst->getRoot(),3)<<endl;
 
 //
 //	BStree<int>::node<int> *n=bst->getRoot();
