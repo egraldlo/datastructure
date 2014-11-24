@@ -28,3 +28,5 @@ this repo is built for finding a job when I graduating from school, at here I wi
 4, github usage and vim usage
 5, add leetcode for job
 6, add mysql connection pool(last packet which server will transfer to client)
+
+YouCanBuild branch is that you can make in your own PC without installing any lib.
